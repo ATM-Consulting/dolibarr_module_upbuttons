@@ -8,21 +8,25 @@ $(document).ready(function() {
   var $el = $('div.tabsAction');
   
   function scrollButtonsToUp() {
-  		var scrollTop = $(window).scrollTop();
+  		 var scrollTop = $(window).scrollTop();
 	  	 var wHeight  = $( window ).height();
 	  	  
 	  	  if(scrollTop + wHeight < originalElementTop ) {
+	  	  	console.log("tabsAction not in screen ");
+	  	  	
 	  	  	$el.css({
-	  	  		'position':'fixed'
-	  	  		,'bottom':'-13px'
-	  	  		,'right':'-1px'
+	  	  		position:"fixed"
+	  	  		,bottom:'-1px'
+	  	  		,right:'-1px'
 	  	  		,'background-color':'#fff'
-	  	  		,'padding':'20px 0 0 20px'
-	  	  		,'border': '1px solid #e0e0e0'
+	  	  		,padding:'20px 0 20px 20px'
+	  	  		,border: '1px solid #e0e0e0'
 	  	  		,'border-radius': '10px 0 0 0'
+	  	  		,'margin':'0 0 0 0'
 	  	  	});
 	  	  }	
 	  	  else{
+	  	  	console.log("tabsAction in screen ");
 	  	  	$el.removeAttr('style');
 	  	  }
   }
