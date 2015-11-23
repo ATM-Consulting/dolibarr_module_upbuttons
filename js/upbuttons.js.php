@@ -2,6 +2,8 @@
 
 	require '../config.php';
 
+	if(empty($user->rights->upbuttons->useit)) exit;
+
 ?>
 	 
 $(document).ready(function() {
