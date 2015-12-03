@@ -33,7 +33,7 @@ $(document).ready(function() {
 	  	  }
   }
   
-  if($el.length>0 && ($el.find('.button').length>0 || $el.find('.butAction').length>0) ) {
+  if($el.length == 1 && ($el.find('.button').length>0 || $el.find('.butAction').length>0) ) {
   	  	
 	  	  var originalElementTop = $el.offset().top;
       	  
