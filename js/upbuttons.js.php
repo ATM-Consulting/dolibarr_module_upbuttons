@@ -36,17 +36,18 @@
 	  	  }
   }
   
-  if($el.length == 1 && ($el.find('.button').length>0 || $el.find('.butAction').length>0) ) {
-  	  	
-	  	  var originalElementTop = $el.offset().top;
-      	  
-	  	  $(window).on('scroll', function() {
-		  	  scrollButtonsToUp();
-	  	  	
-	  	  });
-		  scrollButtonsToUp();
-  	  	
-  	  }
+  var editline_subtotal = (typeof referer !== 'undefined') referer.indexOf('action=editlinetitle') : -1; /* .indexOf returns -1 if the value to search for never occurs */
+  
+  if (editline_subtotal == -1 && ($el.length == 1 && ($el.find('.button').length>0 || $el.find('.butAction').length>0)))
+  {
+		var originalElementTop = $el.offset().top;
+		      	  
+		$(window).on('scroll', function() {
+		scrollButtonsToUp();
+		});
+		scrollButtonsToUp();
+  }
+
 
  });
   
