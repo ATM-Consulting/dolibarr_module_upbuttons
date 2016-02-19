@@ -89,6 +89,7 @@ class modUpbuttons extends DolibarrModules
 		//                        );
 		$this->module_parts = array(
 			'js'=>array('/upbuttons/js/upbuttons.js.php')
+			,'css'=>array('/upbuttons/css/style.css')
 		);
 
 		// Data directories to create when module is enabled.
