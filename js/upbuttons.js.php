@@ -36,7 +36,8 @@
 	  	  }
   }
   
-  var editline_subtotal = (typeof referer !== 'undefined') referer.indexOf('action=editlinetitle') : -1; /* .indexOf returns -1 if the value to search for never occurs */
+  var editline_subtotal = -1; /* .indexOf returns -1 if the value to search for never occurs */
+  if (typeof referer !== 'undefined') editline_subtotal  = referer.indexOf('action=editlinetitle');
   
   if (editline_subtotal == -1 && ($el.length == 1 && ($el.find('.button').length>0 || $el.find('.butAction').length>0)))
   {
