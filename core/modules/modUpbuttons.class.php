@@ -182,6 +182,12 @@ class modUpbuttons extends DolibarrModules
 		$this->rights[$r][4] = 'useit';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
 
+		$this->rights[$r][0] = $this->numero + $r;	// Permission id (must not be already used)
+		$this->rights[$r][1] = 'UseAllButton';	// Permission label
+		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'UseAllButton';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
+
 
 		// Main menu entries
 		$this->menu = array();			// List of menus to add
