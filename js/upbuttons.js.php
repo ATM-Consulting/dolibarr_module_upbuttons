@@ -86,9 +86,8 @@
   
   if (editline_subtotal == -1 && ($el.length == 1 && ($el.find('.button').length>0 || $el.find('.butAction').length>0)))
   {
-  		var wWidth  = $( window ).width();
-		var originalElementTop = $el.offset().top;
-		var originalElementLeft = $el.offset().left+wWidth;
+  		var originalElementTop = $el.offset().top;
+		var originalElementLeft = $el.offset().left;
 		
 		$( window ).resize(function() {      	  
 			scrollButtonsToUp();
