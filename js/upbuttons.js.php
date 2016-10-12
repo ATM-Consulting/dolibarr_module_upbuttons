@@ -17,9 +17,11 @@
   
   function scrollButtonsToUp() {
   		 var scrollTop = $(window).scrollTop();
+  		 var scrollLeft = $(window).scrollLeft();
 	  	 var wHeight  = $( window ).height();
-	  	  
-	  	  if(scrollTop + wHeight < originalElementTop ) {
+	  	 var wWidth  = $( window ).width();
+
+	  	  if((scrollTop + wHeight < originalElementTop) || (scrollLeft + wWidth < originalElementLeft)) {
 	  	  	//console.log("tabsAction not in screen ");
 	  	  	
 	  	  	$el.css({
@@ -84,7 +86,8 @@
   
   if (editline_subtotal == -1 && ($el.length == 1 && ($el.find('.button').length>0 || $el.find('.butAction').length>0)))
   {
-		var originalElementTop = $el.offset().top;
+  		var originalElementTop = $el.offset().top;
+		var originalElementLeft = $el.offset().left;
 		
 		$( window ).resize(function() {      	  
 			scrollButtonsToUp();
