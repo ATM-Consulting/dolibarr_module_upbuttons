@@ -89,6 +89,9 @@
   		var originalElementTop = $el.offset().top;
 		var originalElementLeft = $el.offset().left;
 		
+		if(originalElementTop <= 0) {
+			window.setTimeout(function() { originalElementTop = $el.offset().top;originalElementLeft = $el.offset().left; scrollButtonsToUp(); },100);
+		}
 		$( window ).resize(function() {      	  
 			scrollButtonsToUp();
 		});
