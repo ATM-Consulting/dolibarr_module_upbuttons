@@ -1,5 +1,7 @@
 <?php
 
+	header('Content-Type: application/javascript');
+	
 	require '../config.php';
 
 	if(empty($user->rights->upbuttons->useit)) exit;
