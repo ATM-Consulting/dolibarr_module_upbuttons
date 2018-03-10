@@ -6,10 +6,37 @@
 
 	if(empty($user->rights->upbuttons->useit)) exit;
 
+	$langs->load('upbuttons@upbuttons')
 	
 ?>$(document).ready(function() {
   var $el = $('div.tabsAction').first();
   
+  $('div.fiche div.statusref').after('<div id="nav-dropdown"></div>');
+  var $dropdownbutton = $("#nav-dropdown");
+  
+  $ul = $('<ul></ul>');
+  $ul.hide();
+  
+  $el.find('a,#action-clone').each(function(i,item) {
+    $item = $(item);
+    var a = $('<div />').append($item.clone()).html();;
+   $ul.append('<li>'+a+'</li>');
+  });
+  
+  $nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
+  $nav.hover(
+  	 function() {
+  	  	$(this).find('ul').show();
+	  }
+	  ,function() {
+		$(this).find('ul').hide();  
+	  }
+  );
+  
+  $nav.append($ul);
+  
+  $dropdownbutton.append($nav);
+
   <?php
   	if(!empty($user->rights->upbuttons->UseAllButton)) {
   		echo '$("body").append("'.addslashes('<a href="javascript:;" id="justOneButton" style="display:none;">'.img_picto('','all@upbuttons').'</a>').'");';
