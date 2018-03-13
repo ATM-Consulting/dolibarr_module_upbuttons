@@ -10,3 +10,31 @@ div.upbuttonsdiv .divButAction a {
 	padding:0.3em 0.4em;
 	margin:0em 0.4em;
 }
+#nav-dropdown {
+	float: right;
+    padding-left: 12px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    clear: both;
+	
+}
+#upbuttons-nav {
+	position:relative;
+}
+#upbuttons-nav ul {
+	position:absolute;
+	right:0px;
+	top:-50px;	
+}
+
+#upbuttons-nav ul li {
+	list-style: none;
+	width:200px;
+}
+#upbuttons-nav ul li>a,#upbuttons-nav ul li>span {
+	width:200px;
+	margin-bottom:1px;
+}
+#upbuttons-nav ul li:hover>a,#upbuttons-nav ul li:hover>span {
+	background-color: rgb( 159, 171, 208);
+}

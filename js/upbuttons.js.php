@@ -6,13 +6,18 @@
 
 	if(empty($user->rights->upbuttons->useit)) exit;
 
+	$langs->load('upbuttons@upbuttons')
 	
 ?>$(document).ready(function() {
+
   var $el = $('div.tabsAction').first();
-  
+
   <?php
   	if(!empty($user->rights->upbuttons->UseAllButton)) {
-  		echo '$("body").append("'.addslashes('<a href="javascript:;" id="justOneButton" style="display:none;">'.img_picto('','all@upbuttons').'</a>').'");';
+  		?>
+  		window.setTimeout(getButtonInBanner,300); //delai for js button
+  		<?php
+  		//echo '$("body").append("'.addslashes('<a href="javascript:;" id="justOneButton" style="display:none;">'.img_picto('','all@upbuttons').'</a>').'");';
   	}
   ?>
   
@@ -108,3 +113,40 @@
 
  });
   
+function getButtonInBanner() {
+  var $el = $('div.tabsAction').first();
+  if($el.length == 0 ) return;
+
+  $('div.fiche div.pagination').css('padding',0);
+  $('div.fiche div.statusref').css('margin-bottom','8px');
+  $('div.fiche div.statusref').after('<div id="nav-dropdown"></div>');
+  var $dropdownbutton = $("#nav-dropdown");
+  
+  $ul = $('<ul></ul>');
+  $ul.hide();
+  
+  $el.find('a,#action-clone').each(function(i,item) {
+    $item = $(item);
+    var $a = $item.clone(true, true);
+    
+  $li = $('<li />');
+  $li.append($a);
+
+   $ul.append($li);
+  });
+  
+  $nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
+  $nav.hover(
+  	 function() {
+  	  	$(this).find('ul').show();
+	  }
+	  ,function() {
+		$(this).find('ul').hide();  
+	  }
+  );
+  
+  $nav.append($ul);
+  
+  $dropdownbutton.append($nav);
+
+}
