@@ -5,5 +5,6 @@ ATMAbout = Ce module a été développé par <a href="http://www.atm-consulting.
 
 UpbuttonsSetup = Configuration du module Upbuttons
 UpbuttonsAbout = A propos du module Upbuttons
-UseAllButton=Utilise le mode un seul bouton
+UseAllButton=Utiliser le remontoir de boutons
+UseSingleButton=Utilise le mode un seul bouton
 LinksActions=Actions disponibles
