@@ -38,3 +38,19 @@ div.upbuttonsdiv .divButAction a {
 #upbuttons-nav ul li:hover>a,#upbuttons-nav ul li:hover>span {
 	background-color: rgb( 159, 171, 208);
 }
+
+
+body.upbutton-allow-sticky-tab div.tabs {
+	background: #fff;
+	position: sticky;
+	top: 50px;
+	position: -webkit-sticky;
+
+	transition: font-size 0.1s ease-out;
+}
+
+body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
+	border-bottom: 1px solid #BBB;
+	z-index: 99;
+	font-size: 12px;
+}
