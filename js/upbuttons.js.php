@@ -108,7 +108,26 @@ $langs->load('upbuttons@upbuttons')
 		scrollButtonsToUp();
 	}
 
+<?php
+if( !empty($conf->global->UPBUTTON_STICKY_TAB)) {
+?>
+	$('body').addClass('upbutton-allow-sticky-tab'); // for css filter
 
+	if ('IntersectionObserver' in window) {
+		// Skicky tabs animation
+		var observer = new IntersectionObserver(function (entries) {
+			if (entries[0].intersectionRatio === 0) {
+				document.querySelector("div.tabs").classList.add("nav-container-sticky");
+			} else if (entries[0].intersectionRatio > 0) {
+				document.querySelector("div.tabs").classList.remove("nav-container-sticky");
+			}
+		}, {threshold: [0, 1]});
+		$('.tabs').before($('<div class="sentinal"></div>'));
+		observer.observe(document.querySelector(".sentinal"));
+	}
+<?php
+}
+?>
 });
 
 function getButtonInBanner() {

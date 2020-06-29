@@ -8,3 +8,6 @@ UpbuttonsAbout = A propos du module Upbuttons
 UseAllButton=Utiliser le remontoir de boutons
 UseSingleButton=Utilise le mode un seul bouton
 LinksActions=Actions disponibles
+
+ConvertTabToStickyTab = Garder affiché les onglets des fiches
+ConvertTabToStickyTabHelp = Lorsque vous faites défiler la page les onglets restent affichés au premier plan, collés au menu principal. Cette option n'est compatible qu'à partir de la version 10 de Dolibarr. Cette option n'est probablement pas conpatible avec des thèmes autres que ceux fournis par défaut avec Dolibarr.

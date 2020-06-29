@@ -59,7 +59,7 @@ if (preg_match('/set_(.*)/',$action,$reg))
 		dol_print_error($db);
 	}
 }
-	
+
 if (preg_match('/del_(.*)/',$action,$reg))
 {
 	$code=$reg[1];
@@ -91,34 +91,38 @@ dol_fiche_head(
     $head,
     'settings',
     $langs->trans("Module104830Name"),
-    0,
+    -1,
     "upbuttons@upbuttons"
 );
+
+dol_fiche_end(-1);
 
 // Setup page goes here
 $form=new Form($db);
 $var=false;
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("Parameters").'</td>'."\n";
-print '<td align="center" width="20">&nbsp;</td>';
-print '<td align="center" width="100">'.$langs->trans("Value").'</td>'."\n";
+print '<th>'.$langs->trans("Parameters").'</th>'."\n";
+print '<th align="center" width="20">&nbsp;</th>';
+print '<th align="center" width="100">'.$langs->trans("Value").'</th>'."\n";
 
-/*
+
 // Example with a yes / no select
 $var=!$var;
 print '<tr '.$bc[$var].'>';
-print '<td>'.$langs->trans("UseAllButton").'</td>';
+print '<td>';
+print $form->textwithtooltip( $langs->trans("ConvertTabToStickyTab") , $langs->trans("ConvertTabToStickyTabHelp"),2,1,img_help(1,''));
+print '</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 print '<td align="right" width="300">';
 print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-print '<input type="hidden" name="action" value="set_UPBUTTON_USE_ALL_MODE">';
-print $form->selectyesno("UPBUTTON_USE_ALL_MODE",$conf->global->UPBUTTON_USE_ALL_MODE,1);
+print '<input type="hidden" name="action" value="set_UPBUTTON_STICKY_TAB">';
+print $form->selectyesno("UPBUTTON_STICKY_TAB",$conf->global->UPBUTTON_STICKY_TAB,1);
 print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 print '</form>';
 print '</td></tr>';
-*/
+
 print '</table>';
 
 llxFooter();
