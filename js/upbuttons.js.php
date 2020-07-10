@@ -118,6 +118,7 @@ if( !empty($conf->global->UPBUTTON_STICKY_TAB)) {
 		var observer = new IntersectionObserver(function (entries) {
 			if (entries[0].intersectionRatio === 0) {
 				document.querySelector("div.tabs").classList.add("nav-container-sticky");
+				$('.nav-container-sticky').css('top', $("#id-top").height() + 'px');
 			} else if (entries[0].intersectionRatio > 0) {
 				document.querySelector("div.tabs").classList.remove("nav-container-sticky");
 			}
