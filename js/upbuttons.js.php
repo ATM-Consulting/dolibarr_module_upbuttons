@@ -118,12 +118,21 @@ if( !empty($conf->global->UPBUTTON_STICKY_TAB)) {
 		var observer = new IntersectionObserver(function (entries) {
 			if (entries[0].intersectionRatio === 0) {
 				document.querySelector("div.tabs").classList.add("nav-container-sticky");
-				$('.nav-container-sticky').css('top', $("#id-top").height() + 'px');
+				$('.nav-container-sticky').css('top', $("#id-top").outerHeight() + 'px');
 			} else if (entries[0].intersectionRatio > 0) {
 				document.querySelector("div.tabs").classList.remove("nav-container-sticky");
 			}
 		}, {threshold: [0, 1]});
+
 		$('.tabs').before($('<div class="sentinal"></div>'));
+
+		// use timeout to determime position after other js loader like breadcrumb
+		setTimeout(function(){
+			var x = $('.sentinal').position();
+			$('.sentinal').css('position', 'absolute');
+			$('.sentinal').css('top', (x.top - $("#id-top").height())  + 'px');
+		}, 300);
+
 		observer.observe(document.querySelector(".sentinal"));
 	}
 <?php
