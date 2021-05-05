@@ -153,7 +153,7 @@ function getButtonInBanner() {
 	$('div.fiche div.statusref').after('<div id="nav-dropdown"></div>');
 	var $dropdownbutton = $("#nav-dropdown");
 
-	$ul = $('<ul></ul>');
+	$ul = $('<ul style="z-index: 2"></ul>');
 	$ul.hide();
 
 	$upbuttons_container.find('a,#action-clone').each(function (i, item) {
