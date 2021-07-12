@@ -30,7 +30,10 @@ $langs->load('upbuttons@upbuttons')
 		var wHeight = $(window).height();
 		var wWidth = $(window).width();
 
-		if ((scrollTop + wHeight < originalElementTop) || (scrollLeft + wWidth < originalElementLeft)) {
+		if (
+			((scrollTop + wHeight < originalElementTop) || (scrollLeft + wWidth < originalElementLeft))
+			&& $(window).width() > 1000  // disbled for smartphone
+		) {
 			//console.log("tabsAction not in screen ");
 
 			$upbuttons_container.css({
@@ -115,29 +118,31 @@ $langs->load('upbuttons@upbuttons')
 <?php
 if( !empty($conf->global->UPBUTTON_STICKY_TAB)) {
 ?>
-	$('body').addClass('upbutton-allow-sticky-tab'); // for css filter
+	if($(window).width() > 1000) { // disbled for smartphone
+		$('body').addClass('upbutton-allow-sticky-tab'); // for css filter
 
-	if ('IntersectionObserver' in window) {
-		// Skicky tabs animation
-		var observer = new IntersectionObserver(function (entries) {
-			if (entries[0].intersectionRatio === 0) {
-				document.querySelector("div.tabs").classList.add("nav-container-sticky");
-				$('.nav-container-sticky').css('top', $("#id-top").outerHeight() + 'px');
-			} else if (entries[0].intersectionRatio > 0) {
-				document.querySelector("div.tabs").classList.remove("nav-container-sticky");
-			}
-		}, {threshold: [0, 1]});
+		if ('IntersectionObserver' in window) {
+			// Skicky tabs animation
+			var observer = new IntersectionObserver(function (entries) {
+				if (entries[0].intersectionRatio === 0) {
+					document.querySelector("div.tabs").classList.add("nav-container-sticky");
+					$('.nav-container-sticky').css('top', $("#id-top").outerHeight() + 'px');
+				} else if (entries[0].intersectionRatio > 0) {
+					document.querySelector("div.tabs").classList.remove("nav-container-sticky");
+				}
+			}, {threshold: [0, 1]});
 
-		$('.tabs').before($('<div class="sentinal"></div>'));
+			$('.tabs').before($('<div class="sentinal"></div>'));
 
-		// use timeout to determime position after other js loader like breadcrumb
-		setTimeout(function(){
-			var x = $('.sentinal').position();
-			$('.sentinal').css('position', 'absolute');
-			$('.sentinal').css('top', (x.top - $("#id-top").height())  + 'px');
-		}, 300);
+			// use timeout to determime position after other js loader like breadcrumb
+			setTimeout(function(){
+				var x = $('.sentinal').position();
+				$('.sentinal').css('position', 'absolute');
+				$('.sentinal').css('top', (x.top - $("#id-top").height())  + 'px');
+			}, 300);
 
-		observer.observe(document.querySelector(".sentinal"));
+			observer.observe(document.querySelector(".sentinal"));
+		}
 	}
 <?php
 }
