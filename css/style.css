@@ -1,5 +1,5 @@
 div.upbuttonsdiv {
-	
+	z-index: 100;
 }
 div.upbuttonsdiv .divButAction {
 	opacity:1;
