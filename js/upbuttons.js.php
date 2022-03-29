@@ -118,7 +118,7 @@ $langs->load('upbuttons@upbuttons')
 <?php
 if( !empty($conf->global->UPBUTTON_STICKY_TAB)) {
 ?>
-	if($(window).width() > 1000) { // disbled for smartphone
+	if($(window).width() > 1000 && $('.tabs').length > 0) { // disabled for smartphone
 		$('body').addClass('upbutton-allow-sticky-tab'); // for css filter
 
 		if ('IntersectionObserver' in window) {
