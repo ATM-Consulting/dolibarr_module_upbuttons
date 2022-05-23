@@ -172,19 +172,20 @@ function getButtonInBanner() {
 
 		$ul.append($li);
 	});
+    <?php if(empty($conf->global->UPBUTTON_HIDE_AVAILABLE_ACTION)) {?>
+        $nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
+        $nav.hover(
+            function () {
+                $(this).find('ul').show();
+            }
+            , function () {
+                $(this).find('ul').hide();
+            }
+        );
 
-	$nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
-	$nav.hover(
-		function () {
-			$(this).find('ul').show();
-		}
-		, function () {
-			$(this).find('ul').hide();
-		}
-	);
+        $nav.append($ul);
 
-	$nav.append($ul);
-
-	$dropdownbutton.append($nav);
+        $dropdownbutton.append($nav);
+    <?php } ?>
 
 }

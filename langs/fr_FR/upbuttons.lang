@@ -11,3 +11,7 @@ LinksActions=Actions disponibles
 
 ConvertTabToStickyTab = Garder affiché les onglets des fiches
 ConvertTabToStickyTabHelp = Lorsque vous faites défiler la page les onglets restent affichés au premier plan, collés au menu principal. Cette option n'est compatible qu'à partir de la version 10 de Dolibarr. Cette option n'est probablement pas conpatible avec des thèmes autres que ceux fournis par défaut avec Dolibarr.
+HideAvailableActionButtons = Cacher le bouton "Actions disponibles"
+DisplayFloatingMenu=Afficher les boutons dans un menu flottant
+DisplayFloatingMenuHelp=Les boutons seront disponibles dans un menu flottant sur la droite de la pagé (type "Hamburger")
+DisplayFloatingMenuType=Sens d'affichage des boutons dans le menu flottant
