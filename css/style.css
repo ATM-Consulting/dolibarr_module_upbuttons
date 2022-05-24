@@ -54,3 +54,84 @@ body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
 	z-index: 99;
 	font-size: 12px;
 }
+
+#upbuttons-floating-menu ul li:hover>a,#upbuttons-floating-menu ul li:hover>span {
+	background-color: rgb( 159, 171, 208);
+}
+#upbuttons-floating-menu {
+	 clear: both;
+	display: inline-block;
+    z-index: 100;
+   	position: fixed;
+    top: 50%;
+    left: 100%;
+
+	padding: 0px;
+	width: 250px;
+	height: auto;
+    text-align: center;
+
+    background: rgba(0,0,0,.5);
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c75b3e', endColorstr='#f06522', GradientType=0);
+    -ms-transform: rotate(90deg) translateX(-50%);
+    -webkit-transform: rotate(90deg) translateX(-50%);
+    transform: rotate(90deg) translateX(-50%);
+    transform-origin: left top 0;
+    border-radius: 0px 0px 7px 7px ;
+	transition: all .4s ease;
+
+}
+
+.rot {
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+#upbuttons-floating-menu.--closed{
+	-ms-transform: rotate(90deg) translateX(-50%) translateY(-100%);
+	-webkit-transform: rotate(90deg) translateX(-50%) translateY(-100%);
+	transform: rotate(90deg) translateX(-50%) translateY(calc(-100% + 15px));
+}
+
+.upbuttons-close-button {
+	position: relative;
+	height: 10px;
+	width: 100%;
+	min-width: 80px;
+	border-top: 1px solid rgba(0,0,0,0.1);
+    cursor: pointer;
+	background: rgba(0,0,0,0.1);
+	border-radius: 0px 0px 7px 7px ;
+}
+
+.upbuttons-close-button span {
+	display: block;
+	margin: 1px auto 0 auto ;
+	width: 150px;
+	height: 1px;
+	background: rgba(255,255,255,.6);
+}
+
+#upbuttons-floating-menu ul {
+	right:0px;
+	top:-50px;
+	left: -50px;
+	padding : 0px;
+	width:100%;
+}
+
+#upbuttons-floating-menu ul li {
+	list-style: none;
+	width:200px;
+}
+#upbuttons-floating-menu ul li>a,#upbuttons-floating-menu ul li>span {
+	width:200px;
+	margin-bottom:1px;
+}
+.upbuttons-container.--vertical {
+	-ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg) ;
+    transform: rotate(-90deg);
+}

@@ -188,4 +188,23 @@ function getButtonInBanner() {
         $dropdownbutton.append($nav);
     <?php } ?>
 
+	<?php if(! empty($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU)) { ?>
+        <?php if($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU_TYPE == 'horizontal') { ?>
+            $nav = $('<div id="upbuttons-floating-menu" class="--closed"><div class="upbuttons-container "></div><div class="upbuttons-close-button"><span></span><span></span><span></span></div></div>');
+        <?php } else {?>
+            $nav = $('<div id="upbuttons-floating-menu" class="--closed"><div class="upbuttons-container --vertical"></div><div class="upbuttons-close-button"><span></span><span></span><span></span></div></div>');
+
+        <?php } ?>
+        $dropdownbutton.append($nav);
+        $ul.show();
+        $('.upbuttons-container').append($ul);
+        <?php if($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU_TYPE != 'horizontal') { ?>
+            $('#upbuttons-floating-menu').width($('.upbuttons-container').height()+10);
+        <?php } ?>
+        $(document).on('click', '#upbuttons-floating-menu .upbuttons-close-button', function (event) {
+            $('#upbuttons-floating-menu').toggleClass('--closed');
+        });
+	<?php } ?>
+
+
 }
