@@ -167,6 +167,7 @@ body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
 }
 #upbuttons-floating-menu.--vertical ul li {
 	width:200px;
+	margin: 3px;
 }
 #upbuttons-floating-menu.--vertical ul li>a,#upbuttons-floating-menu.--vertical ul li>span {
 	width:200px;
@@ -191,5 +192,5 @@ body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
 #upbuttons-floating-menu.--horizontal li a{
 	display: block;
 	max-width: 200px;
-	margin: 5px;
+
 }
