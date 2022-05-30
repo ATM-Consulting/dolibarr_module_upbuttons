@@ -190,6 +190,7 @@ function getButtonInBanner() {
 
 	<?php if(! empty($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU)) { ?>
 
+
         let menuClass = '--horizontal';
         <?php if($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU_TYPE != 'horizontal') { ?>
              menuClass = '--vertical';
@@ -200,9 +201,10 @@ function getButtonInBanner() {
         $dropdownbutton.append($nav);
         $ul.show();
         $('.upbuttons-container').append($ul);
-        <?php if($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU_TYPE != 'horizontal') { ?>
-            //$('#upbuttons-floating-menu').width($('.upbuttons-container').height()+10);
-        <?php } ?>
+        if(menuClass == '--horizontal'){
+             $('#upbuttons-floating-menu').width($('.upbuttons-container').width()+80);
+        }
+
         $(document).on('click', '#upbuttons-floating-menu .upbuttons-close-button', function (event) {
             $('#upbuttons-floating-menu').toggleClass('--closed');
         });

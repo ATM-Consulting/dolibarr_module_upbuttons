@@ -63,6 +63,7 @@ body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
 #upbuttons-floating-menu {
 
 	--menu-right-offset : 15px;
+	--upbutton-default-border-radius: 4px;
 
 	clear: both;
 	display: block;
@@ -77,24 +78,27 @@ body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
 	height: auto;
     text-align: center;
 
-    background: rgba(0,0,0,.5);
+    background: rgba(255,255,255,.5);
 
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c75b3e', endColorstr='#f06522', GradientType=0);
-    -ms-transform: translateX(-100%);
-    -webkit-transform:translateX(-100%);
-    transform:  translateX(-100%);
-    transform-origin: left top 0;
-	border-radius: 7px 0px 0px 7px ;
-	transition: all .4s ease;
-}
 
+    -ms-transform: translateY(-50%) translateX(-100%);
+    -webkit-transform:translateY(-50%) translateX(-100%);
+    transform:  translateY(-50%) translateX(-100%);
+
+    transform-origin: left top 0;
+	border-radius: var(--upbutton-default-border-radius) 0px 0px var(--upbutton-default-border-radius) ;
+	transition: all .4s ease;
+	box-shadow: 0px 0px 3px rgba(0,0,0,.4);
+}
 
 
 #upbuttons-floating-menu.--horizontal{
-	max-width: 800px;
+	max-width: 1300px;
 	min-width: 250px;
     width: 90%;
 }
+
 
 .upbuttons-floating-menu__flex-container {
 	display: flex;
@@ -102,7 +106,9 @@ body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
     flex-wrap: wrap;
 }
 
-
+#upbuttons-floating-menu.--horizontal .upbuttons-floating-menu__flex-container{
+    flex-wrap: nowrap;
+}
 
 
 .upbuttons-container{
@@ -112,21 +118,31 @@ body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
     width: 250px;
 }
 
+#upbuttons-floating-menu.--horizontal .upbuttons-container{
+    width: auto;
+	flex-grow: 0;
+}
+
 #upbuttons-floating-menu.--closed{
-	-ms-transform:  translateX(-15px);
-	-webkit-transform: translateX(-15px);
-	transform:translateX(-15px);
+	-ms-transform:  translateX(-15px) translateY(-50%) ;
+	-webkit-transform: translateX(-15px) translateY(-50%) ;
+	transform:translateX(-15px) translateY(-50%) ;
 }
 
 .upbuttons-close-button {
 	/*border-top: 1px solid rgba(0,0,0,0.1);*/
     cursor: pointer;
-	background: rgba(0,0,0,0.1);
-	border-radius: 7px 0px 0px 7px ;
+	background: var(--butactionbg);
+	border-radius: var(--upbutton-default-border-radius) 0px 0px var(--upbutton-default-border-radius) ;
 
 	flex-grow: 0;
     flex-shrink: 1;
     flex-basis: auto;
+    width: 10px;
+	transition: all .4s ease;
+}
+
+.--closed .upbuttons-close-button {
     width: 15px;
 }
 
@@ -173,5 +189,6 @@ body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
 }
 
 #upbuttons-floating-menu.--horizontal li a{
-display: block;
+	display: block;
+	max-width: 200px;
 }
