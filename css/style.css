@@ -191,4 +191,5 @@ body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
 #upbuttons-floating-menu.--horizontal li a{
 	display: block;
 	max-width: 200px;
+	margin: 5px;
 }

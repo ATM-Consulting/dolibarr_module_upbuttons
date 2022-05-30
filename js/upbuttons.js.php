@@ -191,9 +191,9 @@ function getButtonInBanner() {
 	<?php if(! empty($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU)) { ?>
 
 
-        let menuClass = '--horizontal';
-        <?php if($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU_TYPE != 'horizontal') { ?>
-             menuClass = '--vertical';
+        let menuClass = '--vertical';
+        <?php if($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU_TYPE == 'horizontal') { ?>
+             menuClass = '--horizontal';
         <?php } ?>
 
         $nav = $('<div id="upbuttons-floating-menu" class="--closed ' + menuClass + '"><div class="upbuttons-floating-menu__flex-container"><div class="upbuttons-close-button"><span></span><span></span><span></span></div><div class="upbuttons-container"></div></div></div>');
