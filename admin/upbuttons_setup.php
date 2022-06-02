@@ -123,8 +123,55 @@ print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">'
 print '</form>';
 print '</td></tr>';
 
-print '</table>';
+$var=!$var;
+print '<tr '.$bc[$var].'>';
+print '<td>';
+print $form->textwithtooltip( $langs->trans("HideAvailableActionButtons") , '',0,1,img_help(1,''));
+print '</td>';
+print '<td align="center" width="20">&nbsp;</td>';
+print '<td align="right" width="300">';
+print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
+print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="action" value="set_UPBUTTON_HIDE_AVAILABLE_ACTION">';
+print $form->selectyesno("UPBUTTON_HIDE_AVAILABLE_ACTION",$conf->global->UPBUTTON_HIDE_AVAILABLE_ACTION,1);
+print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
+print '</form>';
+print '</td></tr>';
 
+$var=!$var;
+print '<tr '.$bc[$var].'>';
+print '<td>';
+print $form->textwithtooltip( $langs->trans("DisplayFloatingMenu") , $langs->trans("DisplayFloatingMenuHelp"),2,1,img_help(1,''));
+print '</td>';
+print '<td align="center" width="20">&nbsp;</td>';
+print '<td align="right" width="300">';
+print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
+print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="action" value="set_UPBUTTON_DISPLAY_FLOATING_MENU">';
+print $form->selectyesno("UPBUTTON_DISPLAY_FLOATING_MENU",$conf->global->UPBUTTON_DISPLAY_FLOATING_MENU,1);
+print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
+print '</form>';
+print '</td></tr>';
+
+
+
+if(!empty($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU)) {
+	$var = ! $var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>';
+	print $form->textwithtooltip($langs->trans("DisplayFloatingMenuType"), '', 0, 1, img_help(1, ''));
+	print '</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
+	print '<td align="right" width="300">';
+	print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
+	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+	print '<input type="hidden" name="action" value="set_UPBUTTON_DISPLAY_FLOATING_MENU_TYPE">';
+	print Form::selectarray("UPBUTTON_DISPLAY_FLOATING_MENU_TYPE", array('vertical' => 'Vertical', 'horizontal' => 'Horizontal') , $conf->global->UPBUTTON_DISPLAY_FLOATING_MENU_TYPE);
+	print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
+	print '</form>';
+	print '</td></tr>';
+}
+print '</table>';
 llxFooter();
 
 $db->close();

@@ -54,3 +54,141 @@ body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
 	z-index: 99;
 	font-size: 12px;
 }
+
+/* new button floating menu */
+
+#upbuttons-floating-menu ul li:hover>a,#upbuttons-floating-menu ul li:hover>span {
+	background-color: rgb( 159, 171, 208);
+}
+#upbuttons-floating-menu {
+
+	--menu-right-offset : 15px;
+	--upbutton-default-border-radius: 4px;
+
+	clear: both;
+	display: block;
+    z-index: 100;
+   	position: fixed;
+    top: 50%;
+    left: 100%;
+
+	padding: 0px;
+	max-width: 280px;
+    width: 280px;
+	height: auto;
+    text-align: center;
+
+    background: rgba(255,255,255,.5);
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c75b3e', endColorstr='#f06522', GradientType=0);
+
+    -ms-transform: translateY(-50%) translateX(-100%);
+    -webkit-transform:translateY(-50%) translateX(-100%);
+    transform:  translateY(-50%) translateX(-100%);
+
+    transform-origin: left top 0;
+	border-radius: var(--upbutton-default-border-radius) 0px 0px var(--upbutton-default-border-radius) ;
+	transition: all .4s ease;
+	box-shadow: 0px 0px 3px rgba(0,0,0,.4);
+}
+
+
+#upbuttons-floating-menu.--horizontal{
+	max-width: 1300px;
+	min-width: 250px;
+    width: 90%;
+}
+
+
+.upbuttons-floating-menu__flex-container {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#upbuttons-floating-menu.--horizontal .upbuttons-floating-menu__flex-container{
+    flex-wrap: nowrap;
+}
+
+
+.upbuttons-container{
+	flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    width: 250px;
+}
+
+#upbuttons-floating-menu.--horizontal .upbuttons-container{
+    width: auto;
+	flex-grow: 0;
+}
+
+#upbuttons-floating-menu.--closed{
+	-ms-transform:  translateX(-15px) translateY(-50%) ;
+	-webkit-transform: translateX(-15px) translateY(-50%) ;
+	transform:translateX(-15px) translateY(-50%) ;
+}
+
+.upbuttons-close-button {
+	/*border-top: 1px solid rgba(0,0,0,0.1);*/
+    cursor: pointer;
+	background: var(--butactionbg);
+	border-radius: var(--upbutton-default-border-radius) 0px 0px var(--upbutton-default-border-radius) ;
+
+	flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    width: 10px;
+	transition: all .4s ease;
+}
+
+.--closed .upbuttons-close-button {
+    width: 15px;
+}
+
+.upbuttons-close-button span {
+	/*display: block;*/
+	/*margin: 1px auto 0 auto ;*/
+	width: 150px;
+	height: 1px;
+	transform: rotate(90deg);
+	background: rgba(255,255,255,.6);
+}
+
+#upbuttons-floating-menu ul {
+	right:0px;
+	top:-50px;
+	left: -50px;
+	padding : 0px;
+	width:100%;
+}
+#upbuttons-floating-menu ul li {
+	list-style: none;
+}
+#upbuttons-floating-menu.--vertical ul li {
+	width:200px;
+	margin: 3px;
+}
+#upbuttons-floating-menu.--vertical ul li>a,#upbuttons-floating-menu.--vertical ul li>span {
+	width:200px;
+	margin-bottom:1px;
+}
+
+
+#upbuttons-floating-menu.--horizontal ul{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+#upbuttons-floating-menu.--horizontal li{
+	flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+}
+
+#upbuttons-floating-menu.--horizontal li a{
+	display: block;
+	max-width: 200px;
+
+}

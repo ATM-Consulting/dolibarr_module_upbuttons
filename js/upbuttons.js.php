@@ -172,19 +172,54 @@ function getButtonInBanner() {
 
 		$ul.append($li);
 	});
+    <?php if(empty($conf->global->UPBUTTON_HIDE_AVAILABLE_ACTION)) {?>
+        $nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
+        $nav.hover(
+            function () {
+                $(this).find('ul').show();
+            }
+            , function () {
+                $(this).find('ul').hide();
+            }
+        );
 
-	$nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
-	$nav.hover(
-		function () {
-			$(this).find('ul').show();
-		}
-		, function () {
-			$(this).find('ul').hide();
-		}
-	);
+        $nav.append($ul);
 
-	$nav.append($ul);
+        $dropdownbutton.append($nav);
+    <?php } ?>
 
-	$dropdownbutton.append($nav);
+	<?php if(! empty($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU)) { ?>
+
+
+        let menuClass = '--vertical';
+        <?php if($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU_TYPE == 'horizontal') { ?>
+             menuClass = '--horizontal';
+        <?php } ?>
+
+        $nav = $('<div id="upbuttons-floating-menu" class="--closed ' + menuClass + '"><div class="upbuttons-floating-menu__flex-container"><div class="upbuttons-close-button"><span></span><span></span><span></span></div><div class="upbuttons-container"></div></div></div>');
+
+        $dropdownbutton.append($nav);
+        $ul.show();
+        $('.upbuttons-container').append($ul);
+        if(menuClass == '--horizontal'){
+             $('#upbuttons-floating-menu').width($('.upbuttons-container').width()+80);
+        }
+
+        $(document).on('click', '#upbuttons-floating-menu .upbuttons-close-button', function (event) {
+            $('#upbuttons-floating-menu').toggleClass('--closed');
+        });
+
+        $(document).on('mouseover', '#upbuttons-floating-menu.--closed .upbuttons-close-button', function (event) {
+            $('#upbuttons-floating-menu').toggleClass('--closed');
+        });
+
+        // sur click out close
+        $(document).on("click", function(event) {
+			if (!$(event.target).closest("#nav-dropdown").length) {
+            $('#upbuttons-floating-menu').addClass('--closed');
+            }
+        });
+	<?php } ?>
+
 
 }
