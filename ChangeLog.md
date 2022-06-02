@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ## 1.0
 
+- FIX: Compatibility V16 - Change family- *02/06/2022* - 1.0.9
 - FIX : Js error - 1.0.7 *29/03/2022*
 - FIX : Zindex for bottom - 1.0.6 *06/11/2021*
 - FIX : Disable upbutton for phones - 1.0.5 *12/07/2021*
