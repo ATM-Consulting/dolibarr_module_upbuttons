@@ -36,17 +36,17 @@ $langs->load('upbuttons@upbuttons')
 		) {
 			//console.log("tabsAction not in screen ");
 
-			$upbuttons_container.css({
-				position: "fixed"
-				, bottom: '-1px'
-				, right: '-1px'
-				, 'background-color': '#fff'
-				, padding: '20px 0 5px 20px'
-				, border: '1px solid #e0e0e0'
-				, 'border-radius': '10px 0 0 0'
-				, 'margin': '0 0 0 0'
-				, 'opacity': 1
-			});
+			//$upbuttons_container.css({
+			//	position: "fixed"
+			//	, bottom: '-1px'
+			//	, right: '-1px'
+			//	, 'background-color': '#fff'
+			//	, padding: '20px 0 5px 20px'
+			//	, border: '1px solid #e0e0e0'
+			//	, 'border-radius': '10px 0 0 0'
+			//	, 'margin': '0 0 0 0'
+			//	, 'opacity': 1
+			//});
 
 			$upbuttons_container.addClass('upbuttonsdiv');
 
@@ -106,13 +106,20 @@ $langs->load('upbuttons@upbuttons')
 		}
 		$(window).resize(function () {
 			scrollButtonsToUp();
+            if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
+            else $('#upbuttons-floating-menu').show();
+
 		});
 
 		$(window).on('scroll', function () {
 			scrollButtonsToUp();
+            if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
+            else $('#upbuttons-floating-menu').show();
 		});
 
 		scrollButtonsToUp();
+        //if($('div.tabsAction').is(":visible") === false) $('#upbuttons-floating-menu').show();
+        //else $('#upbuttons-floating-menu').hide();
 	}
 
 <?php
@@ -199,8 +206,9 @@ function getButtonInBanner() {
         $nav = $('<div id="upbuttons-floating-menu" class="--closed ' + menuClass + '"><div class="upbuttons-floating-menu__flex-container"><div class="upbuttons-close-button"><span></span><span></span><span></span></div><div class="upbuttons-container"></div></div></div>');
 
         $dropdownbutton.append($nav);
-        $ul.show();
-        $('.upbuttons-container').append($ul);
+        let ul = $($ul).clone();
+        ul.show();
+        $('.upbuttons-container').append(ul);
         if(menuClass == '--horizontal'){
              $('#upbuttons-floating-menu').width($('.upbuttons-container').width()+80);
         }
@@ -219,6 +227,16 @@ function getButtonInBanner() {
             $('#upbuttons-floating-menu').addClass('--closed');
             }
         });
+    $.fn.isInViewport = function () {
+        var elementTop = $(this).offset().top;
+        var elementBottom = elementTop+$(this).outerHeight();
+
+        var viewportTop = $(window).scrollTop();
+        var viewportBottom = viewportTop+$(window).height();
+
+        return elementBottom > viewportTop && elementTop < viewportBottom;
+    };
+
 	<?php } ?>
 
 
