@@ -119,8 +119,8 @@ $langs->load('upbuttons@upbuttons')
 		});
 
 		scrollButtonsToUp();
-        //if($('div.tabsAction').is(":visible") === false) $('#upbuttons-floating-menu').show();
-        //else $('#upbuttons-floating-menu').hide();
+        if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
+        else $('#upbuttons-floating-menu').show();
 	}
 
 <?php
