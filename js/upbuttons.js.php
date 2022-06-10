@@ -35,18 +35,19 @@ $langs->load('upbuttons@upbuttons')
 			&& $(window).width() > 1000  // disbled for smartphone
 		) {
 			//console.log("tabsAction not in screen ");
-
-			//$upbuttons_container.css({
-			//	position: "fixed"
-			//	, bottom: '-1px'
-			//	, right: '-1px'
-			//	, 'background-color': '#fff'
-			//	, padding: '20px 0 5px 20px'
-			//	, border: '1px solid #e0e0e0'
-			//	, 'border-radius': '10px 0 0 0'
-			//	, 'margin': '0 0 0 0'
-			//	, 'opacity': 1
-			//});
+<?php if( empty($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU)) { ?>
+			$upbuttons_container.css({
+				position: "fixed"
+				, bottom: '-1px'
+				, right: '-1px'
+				, 'background-color': '#fff'
+				, padding: '20px 0 5px 20px'
+				, border: '1px solid #e0e0e0'
+				, 'border-radius': '10px 0 0 0'
+				, 'margin': '0 0 0 0'
+				, 'opacity': 1
+			});
+ <?php } ?>
 
 			$upbuttons_container.addClass('upbuttonsdiv');
 
