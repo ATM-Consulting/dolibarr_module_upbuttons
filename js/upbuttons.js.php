@@ -15,6 +15,15 @@ $langs->load('upbuttons@upbuttons')
 
 ?>$(document).ready(function () {
 
+        $.fn.isInViewport = function () {
+        var elementTop = $(this).offset().top;
+        var elementBottom = elementTop+$(this).outerHeight();
+
+        var viewportTop = $(window).scrollTop();
+        var viewportBottom = viewportTop+$(window).height();
+        return elementBottom > viewportTop && elementTop < viewportBottom;
+    };
+
 	var $upbuttons_container = $('div.tabsAction').first();
 	window.setTimeout(getButtonInBanner, 300); //delai for js button
 	<?php
@@ -35,7 +44,7 @@ $langs->load('upbuttons@upbuttons')
 			&& $(window).width() > 1000  // disbled for smartphone
 		) {
 			//console.log("tabsAction not in screen ");
-
+<?php if( empty($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU)) { ?>
 			$upbuttons_container.css({
 				position: "fixed"
 				, bottom: '-1px'
@@ -47,6 +56,7 @@ $langs->load('upbuttons@upbuttons')
 				, 'margin': '0 0 0 0'
 				, 'opacity': 1
 			});
+ <?php } ?>
 
 			$upbuttons_container.addClass('upbuttonsdiv');
 
@@ -106,10 +116,15 @@ $langs->load('upbuttons@upbuttons')
 		}
 		$(window).resize(function () {
 			scrollButtonsToUp();
+            if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
+            else $('#upbuttons-floating-menu').show();
+
 		});
 
 		$(window).on('scroll', function () {
 			scrollButtonsToUp();
+            if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
+            else $('#upbuttons-floating-menu').show();
 		});
 
 		scrollButtonsToUp();
@@ -199,8 +214,9 @@ function getButtonInBanner() {
         $nav = $('<div id="upbuttons-floating-menu" class="--closed ' + menuClass + '"><div class="upbuttons-floating-menu__flex-container"><div class="upbuttons-close-button"><span></span><span></span><span></span></div><div class="upbuttons-container"></div></div></div>');
 
         $dropdownbutton.append($nav);
-        $ul.show();
-        $('.upbuttons-container').append($ul);
+        let ul = $($ul).clone();
+        ul.show();
+        $('.upbuttons-container').append(ul);
         if(menuClass == '--horizontal'){
              $('#upbuttons-floating-menu').width($('.upbuttons-container').width()+80);
         }
@@ -219,6 +235,9 @@ function getButtonInBanner() {
             $('#upbuttons-floating-menu').addClass('--closed');
             }
         });
+    if ($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
+    else $('#upbuttons-floating-menu').show();
+
 	<?php } ?>
 
 
