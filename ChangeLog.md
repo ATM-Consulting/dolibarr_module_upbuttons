@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ## 1.2
 
+- FIX : Module icon *16/06/2022* 1.2.2
 - FIX : Retours menu flottant *10/06/2022* 1.2.1
 - NEW : Menu flottant sur la droite *24/05/2022* 1.2.0
 - NEW : Ajout de la class TechATM pour l'affichage de la page "A propos" *11/05/2022* 1.1.0
