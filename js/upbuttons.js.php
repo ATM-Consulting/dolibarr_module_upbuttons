@@ -15,6 +15,15 @@ $langs->load('upbuttons@upbuttons')
 
 ?>$(document).ready(function () {
 
+        $.fn.isInViewport = function () {
+        var elementTop = $(this).offset().top;
+        var elementBottom = elementTop+$(this).outerHeight();
+
+        var viewportTop = $(window).scrollTop();
+        var viewportBottom = viewportTop+$(window).height();
+        return elementBottom > viewportTop && elementTop < viewportBottom;
+    };
+
 	var $upbuttons_container = $('div.tabsAction').first();
 	window.setTimeout(getButtonInBanner, 300); //delai for js button
 	<?php
@@ -119,8 +128,6 @@ $langs->load('upbuttons@upbuttons')
 		});
 
 		scrollButtonsToUp();
-        if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
-        else $('#upbuttons-floating-menu').show();
 	}
 
 <?php
@@ -228,15 +235,8 @@ function getButtonInBanner() {
             $('#upbuttons-floating-menu').addClass('--closed');
             }
         });
-    $.fn.isInViewport = function () {
-        var elementTop = $(this).offset().top;
-        var elementBottom = elementTop+$(this).outerHeight();
-
-        var viewportTop = $(window).scrollTop();
-        var viewportBottom = viewportTop+$(window).height();
-
-        return elementBottom > viewportTop && elementTop < viewportBottom;
-    };
+    if ($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
+    else $('#upbuttons-floating-menu').show();
 
 	<?php } ?>
 
