@@ -31,7 +31,7 @@ if (! $res) {
 // Libraries
 require_once DOL_DOCUMENT_ROOT . "/core/lib/admin.lib.php";
 require_once '../lib/upbuttons.lib.php';
-require_once '../backport/v17/core/lib/functions.lib.php';
+require_once __DIR__ . '/../backport/v17/core/lib/functions.lib.php';
 
 // Translations
 $langs->load("upbuttons@upbuttons");
