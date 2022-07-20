@@ -49,7 +49,7 @@ function upbuttonsAdminPrepareHead()
     //$this->tabs = array(
     //	'entity:-tabname:Title:@upbuttons:/upbuttons/mypage.php?id=__ID__'
     //); // to remove a tab
-    complete_head_from_modules($conf, $langs, $object, $head, $h, 'upbuttons');
+    complete_head_from_modules($conf, $langs, null, $head, $h, 'upbuttons');
 
     return $head;
 }
