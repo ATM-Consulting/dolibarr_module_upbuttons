@@ -58,7 +58,7 @@ class modUpbuttons extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Description of module Upbuttons";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.2.1';
+		$this->version = '1.2.3';
 		// Url to the file with your last numberversion of this module
 		require_once __DIR__ . '/../../class/techatm.class.php';
 		$this->url_last_version = \upbuttons\TechATM::getLastModuleVersionUrl($this);
@@ -69,7 +69,7 @@ class modUpbuttons extends DolibarrModules
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto='upbuttons@upbuttons';
+		$this->picto='module.svg@upbuttons';
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		// for default path (eg: /upbuttons/core/xxxxx) (0=disable, 1=enable)

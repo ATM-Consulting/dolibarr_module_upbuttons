@@ -31,6 +31,7 @@ if (! $res) {
 // Libraries
 require_once DOL_DOCUMENT_ROOT . "/core/lib/admin.lib.php";
 require_once '../lib/upbuttons.lib.php';
+require_once __DIR__ . '/../backport/v17/core/lib/functions.lib.php';
 
 // Translations
 $langs->load("upbuttons@upbuttons");
@@ -120,7 +121,7 @@ print '<td align="right" width="300">';
 print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
 print '<input type="hidden" name="token" value="'.$newToken.'">';
 print '<input type="hidden" name="action" value="set_UPBUTTON_STICKY_TAB">';
-print $form->selectyesno("UPBUTTON_STICKY_TAB",$conf->global->UPBUTTON_STICKY_TAB,1);
+print $form->selectyesno("UPBUTTON_STICKY_TAB",getGlobalConst('UPBUTTON_STICKY_TAB'),1);
 print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 print '</form>';
 print '</td></tr>';
@@ -133,9 +134,9 @@ print '</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 print '<td align="right" width="300">';
 print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="token" value="'.$newToken.'">';
 print '<input type="hidden" name="action" value="set_UPBUTTON_HIDE_AVAILABLE_ACTION">';
-print $form->selectyesno("UPBUTTON_HIDE_AVAILABLE_ACTION",$conf->global->UPBUTTON_HIDE_AVAILABLE_ACTION,1);
+print $form->selectyesno("UPBUTTON_HIDE_AVAILABLE_ACTION",getGlobalConst('UPBUTTON_HIDE_AVAILABLE_ACTION'),1);
 print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 print '</form>';
 print '</td></tr>';
@@ -148,9 +149,9 @@ print '</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 print '<td align="right" width="300">';
 print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="token" value="'.$newToken.'">';
 print '<input type="hidden" name="action" value="set_UPBUTTON_DISPLAY_FLOATING_MENU">';
-print $form->selectyesno("UPBUTTON_DISPLAY_FLOATING_MENU",$conf->global->UPBUTTON_DISPLAY_FLOATING_MENU,1);
+print $form->selectyesno("UPBUTTON_DISPLAY_FLOATING_MENU",getGlobalConst('UPBUTTON_DISPLAY_FLOATING_MENU'),1);
 print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 print '</form>';
 print '</td></tr>';
@@ -166,9 +167,9 @@ if(!empty($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU)) {
 	print '<td align="center" width="20">&nbsp;</td>';
 	print '<td align="right" width="300">';
 	print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+	print '<input type="hidden" name="token" value="'.$newToken.'">';
 	print '<input type="hidden" name="action" value="set_UPBUTTON_DISPLAY_FLOATING_MENU_TYPE">';
-	print Form::selectarray("UPBUTTON_DISPLAY_FLOATING_MENU_TYPE", array('vertical' => 'Vertical', 'horizontal' => 'Horizontal') , $conf->global->UPBUTTON_DISPLAY_FLOATING_MENU_TYPE);
+	print Form::selectarray("UPBUTTON_DISPLAY_FLOATING_MENU_TYPE", array('vertical' => 'Vertical', 'horizontal' => 'Horizontal') , getGlobalConst('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE'));
 	print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 	print '</form>';
 	print '</td></tr>';

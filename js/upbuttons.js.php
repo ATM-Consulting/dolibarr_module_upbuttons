@@ -6,7 +6,8 @@ if (!defined('NOTOKENRENEWAL')) {
 	define('NOTOKENRENEWAL', 1);
 }
 
-require '../config.php';
+require __DIR__ . '/../config.php';
+require_once __DIR__ . '/../backport/v17/core/lib/functions.lib.php';
 
 if (empty($user->rights->upbuttons->UseAllButton) && empty($user->rights->upbuttons->UseSingleButton))
 	exit;
@@ -207,7 +208,7 @@ function getButtonInBanner() {
 
 
         let menuClass = '--vertical';
-        <?php if($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU_TYPE == 'horizontal') { ?>
+        <?php if(getGlobalConst('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE') == 'horizontal') { ?>
              menuClass = '--horizontal';
         <?php } ?>
 
