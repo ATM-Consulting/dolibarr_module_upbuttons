@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ## 1.2
 
+- FIX : Disable sticky tab on print view *26/10/2022* - 1.2.4
 - FIX : Compatibility PHP8 (add function lib) Compatiblity V16 - tokens - *20/07/2022* - 1.2.3
 - FIX : Module icon *16/06/2022* 1.2.2
 - FIX : Retours menu flottant *10/06/2022* 1.2.1
