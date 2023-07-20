@@ -192,3 +192,11 @@ body.upbutton-allow-sticky-tab div.tabs.nav-container-sticky {
 	max-width: 200px;
 
 }
+
+@media only screen and (max-width: 1000px) {
+	#upbuttons-nav ul {
+		position:absolute;
+		right:0px;
+		top:50px;	
+	}
+}
