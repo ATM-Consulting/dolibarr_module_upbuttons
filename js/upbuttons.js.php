@@ -45,7 +45,7 @@ $langs->load('upbuttons@upbuttons')
 			&& $(window).width() > 1000  // disbled for smartphone
 		) {
 			//console.log("tabsAction not in screen ");
-<?php if( !getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
+<?php if( !getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
 			$upbuttons_container.css({
 				position: "fixed"
 				, bottom: '-1px'
@@ -132,7 +132,7 @@ $langs->load('upbuttons@upbuttons')
 	}
 
 <?php
-if( getDolGlobalString('UPBUTTON_STICKY_TAB')) {
+if( getDolGlobalInt('UPBUTTON_STICKY_TAB')) {
 ?>
 	if($(window).width() > 1000 && $('.tabs').length > 0 && window.location.href.indexOf("&optioncss=print") == -1) { // disabled for smartphone and print
 		$('body').addClass('upbutton-allow-sticky-tab'); // for css filter
@@ -188,7 +188,7 @@ function getButtonInBanner() {
 
 		$ul.append($li);
 	});
-    <?php if(!getDolGlobalString('UPBUTTON_HIDE_AVAILABLE_ACTION')) {?>
+    <?php if(!getDolGlobalInt('UPBUTTON_HIDE_AVAILABLE_ACTION')) {?>
         $nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
         $nav.hover(
             function () {
@@ -204,11 +204,11 @@ function getButtonInBanner() {
         $dropdownbutton.append($nav);
     <?php } ?>
 
-	<?php if(getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
+	<?php if(getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
 
 
         let menuClass = '--vertical';
-        <?php if(getGlobalConst('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE') == 'horizontal') { ?>
+        <?php if(getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE') == 'horizontal') { ?>
              menuClass = '--horizontal';
         <?php } ?>
 
