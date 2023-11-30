@@ -158,7 +158,7 @@ print '</td></tr>';
 
 
 
-if(!empty($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU)) {
+if(getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU')) {
 	$var = ! $var;
 	print '<tr '.$bc[$var].'>';
 	print '<td>';

@@ -9,7 +9,7 @@ if (!defined('NOTOKENRENEWAL')) {
 require __DIR__ . '/../config.php';
 require_once __DIR__ . '/../backport/v17/core/lib/functions.lib.php';
 
-if (empty($user->rights->upbuttons->UseAllButton) && empty($user->rights->upbuttons->UseSingleButton))
+if (!$user->hasRight('upbuttons', 'UseAllButton') && !$user->hasRight('upbuttons', 'UseSingleButton'))
 	exit;
 
 $langs->load('upbuttons@upbuttons')
@@ -28,7 +28,7 @@ $langs->load('upbuttons@upbuttons')
 	var $upbuttons_container = $('div.tabsAction').first();
 	window.setTimeout(getButtonInBanner, 300); //delai for js button
 	<?php
-	if (!empty($user->rights->upbuttons->UseSingleButton)) {
+	if ($user->hasRight('upbuttons', 'UseSingleButton')) {
 		echo '$("body").append("' . addslashes('<a href="javascript:;" id="justOneButton" style="display:none;">' . img_picto('', 'all@upbuttons') . '</a>') . '");';
 	}
 	?>
@@ -45,7 +45,7 @@ $langs->load('upbuttons@upbuttons')
 			&& $(window).width() > 1000  // disbled for smartphone
 		) {
 			//console.log("tabsAction not in screen ");
-<?php if( empty($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU)) { ?>
+<?php if( !getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
 			$upbuttons_container.css({
 				position: "fixed"
 				, bottom: '-1px'
@@ -76,8 +76,8 @@ $langs->load('upbuttons@upbuttons')
 
 
 			<?php
-			if( empty($user->rights->upbuttons->UseAllButton)
-		&& !empty($user->rights->upbuttons->UseSingleButton)
+			if( !$user->hasRight('upbuttons', 'UseAllButton')
+		&& $user->hasRight('upbuttons', 'UseSingleButton')
 			) {
 			?>
 			$upbuttons_container.hide();
@@ -132,7 +132,7 @@ $langs->load('upbuttons@upbuttons')
 	}
 
 <?php
-if( !empty($conf->global->UPBUTTON_STICKY_TAB)) {
+if( getDolGlobalString('UPBUTTON_STICKY_TAB')) {
 ?>
 	if($(window).width() > 1000 && $('.tabs').length > 0 && window.location.href.indexOf("&optioncss=print") == -1) { // disabled for smartphone and print
 		$('body').addClass('upbutton-allow-sticky-tab'); // for css filter
@@ -188,7 +188,7 @@ function getButtonInBanner() {
 
 		$ul.append($li);
 	});
-    <?php if(empty($conf->global->UPBUTTON_HIDE_AVAILABLE_ACTION)) {?>
+    <?php if(!getDolGlobalString('UPBUTTON_HIDE_AVAILABLE_ACTION')) {?>
         $nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
         $nav.hover(
             function () {
@@ -204,7 +204,7 @@ function getButtonInBanner() {
         $dropdownbutton.append($nav);
     <?php } ?>
 
-	<?php if(! empty($conf->global->UPBUTTON_DISPLAY_FLOATING_MENU)) { ?>
+	<?php if(getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
 
 
         let menuClass = '--vertical';
