@@ -26,7 +26,7 @@
 /**
  * Class ActionsUpbuttons
  */
-class ActionsUpbuttons
+class ActionsUpbuttons extends CommonHookActions
 {
 	/**
 	 * @var array Hook results. Propagated to $hookmanager->resArray for later reuse
