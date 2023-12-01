@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+
+- NEW : compatibilité DolibarrV19 & PHP8 - *30/11/2023* - 1.3.0
+
 ## 1.2
 
 - FIX : Disable sticky tab on print view *26/10/2022* - 1.2.4
