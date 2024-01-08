@@ -5,11 +5,13 @@ All notable changes to this project will be documented in this file.
 
 
 
-## 1.3
+## Release 1.3
 
-- NEW : compatibilité DolibarrV19 & PHP8 - *30/11/2023* - 1.3.0
+- NEW : Dolibarr compatibility V19 - *30/11/2023* - 1.3.0  
+  Changed Dolibarr compatibility range to 15 min - 19 max  
+  Change PHP compatibility range to 7.0 min - 8.2 max
 
-## 1.2
+## Release 1.2
 
 - FIX : Disable sticky tab on print view *26/10/2022* - 1.2.4
 - FIX : Compatibility PHP8 (add function lib) Compatiblity V16 - tokens - *20/07/2022* - 1.2.3
@@ -18,7 +20,7 @@ All notable changes to this project will be documented in this file.
 - NEW : Menu flottant sur la droite *24/05/2022* 1.2.0
 - NEW : Ajout de la class TechATM pour l'affichage de la page "A propos" *11/05/2022* 1.1.0
 
-## 1.0
+## Release 1.0
 
 - FIX : Compatibility V16 - Change family- *02/06/2022* - 1.0.9
 - FIX : Compatibility V16 : newToken - *02/06/2022* - 1.0.8
