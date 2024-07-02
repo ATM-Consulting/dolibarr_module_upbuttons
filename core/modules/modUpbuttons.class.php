@@ -108,7 +108,7 @@ class modUpbuttons extends DolibarrModules
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->conflictwith = array();	// List of modules id this module is in conflict with
 		$this->phpmin = array(7,0);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(15,0);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(16,0);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("upbuttons@upbuttons");
 
 		// Constants
@@ -145,7 +145,7 @@ class modUpbuttons extends DolibarrModules
         $this->tabs = array();
 
         // Dictionaries
-	    if (! isset($conf->upbuttons->enabled))
+		if (!isModEnabled("upbuttons"))
         {
         	$conf->upbuttons=new stdClass();
         	$conf->upbuttons->enabled=0;
