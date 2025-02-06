@@ -167,11 +167,16 @@ if( getDolGlobalInt('UPBUTTON_STICKY_TAB')) {
 
 function getButtonInBanner() {
 	var $upbuttons_container = $('div.tabsAction').first();
-	if ($upbuttons_container.length == 0) return;
+
+	//si les buttons d'actions sont de type input et donc renvoi des données via formulaire
+	const $upbuttons_container_form = $('div.tabsAction input');
+
+	if ($upbuttons_container.length == 0 || $upbuttons_container_form.length > 0) return;
 
 	$('div.fiche div.pagination').css('padding', 0);
 	$('div.fiche div.statusref').css('margin-bottom', '8px');
 	$('div.fiche div.statusref').after('<div id="nav-dropdown"></div>');
+
 	var $dropdownbutton = $("#nav-dropdown");
 
 	$ul = $('<ul style="z-index: 2"></ul>');
@@ -179,6 +184,7 @@ function getButtonInBanner() {
 
 	$upbuttons_container.find('a,#action-clone').each(function (i, item) {
 		$item = $(item);
+
 		if (!$item.hasClass('butActionRefused')) {
 			var $a = $item.clone(true, true);
 		}
@@ -187,7 +193,9 @@ function getButtonInBanner() {
 		$li.append($a);
 
 		$ul.append($li);
+
 	});
+
     <?php if(!getDolGlobalInt('UPBUTTON_HIDE_AVAILABLE_ACTION')) {?>
         $nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
         $nav.hover(
@@ -206,8 +214,8 @@ function getButtonInBanner() {
 
 	<?php if(getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
 
-
         let menuClass = '--vertical';
+
         <?php if(getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE') == 'horizontal') { ?>
              menuClass = '--horizontal';
         <?php } ?>
