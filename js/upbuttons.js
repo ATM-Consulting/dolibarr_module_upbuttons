@@ -103,7 +103,7 @@ ATM_MODULE_UPBUTTONS = {
 
 		setTimeout(() => this.startUpButtons(phpContext), 0);
 
-		if (phpContext['UPBUTTON_STICKY_TAB']) {
+		if (phpContext.conf['UPBUTTON_STICKY_TAB']) {
 			if ($(window).width() > 1000 && $('.tabs').length > 0 && window.location.href.indexOf("&optioncss=print") == -1) { // disabled for smartphone and print
 				$('body').addClass('upbutton-allow-sticky-tab'); // for css filter
 
@@ -131,6 +131,11 @@ ATM_MODULE_UPBUTTONS = {
 				}
 			}
 		}
+
+		if (phpContext.conf['UPBUTTON_FTH_ENABLE']) {
+			// fixedtablehead feature
+			setTimeout(() => this.makeTableHeadsFixed(phpContext), 0);
+		}
 	},
 
 	startUpButtons(phpContext) {
@@ -138,7 +143,6 @@ ATM_MODULE_UPBUTTONS = {
 		const $standardButtonsContainer = $('div.tabsAction').first();
 		const $measuringSpan = $('<span id="upbuttons-offset-placeholder"></span>').insertBefore($standardButtonsContainer);
 		// check activation conditions
-		console.log('startUpButtons');
 		const editline_subtotal = (document.referrer || '').indexOf('action=editlinetitle') !== -1;
 		if (editline_subtotal) {
 			// disable when we are editing a line title using subtotal
