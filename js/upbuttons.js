@@ -134,7 +134,7 @@ ATM_MODULE_UPBUTTONS = {
 
 		if (phpContext.conf['UPBUTTON_FTH_ENABLE']) {
 			// fixedtablehead feature
-			setTimeout(() => this.makeTableHeadsFixed(phpContext), 0);
+			$(() => this.makeTableHeadsFixed(phpContext));
 		}
 	},
 
@@ -366,7 +366,7 @@ ATM_MODULE_UPBUTTONS = {
 	 */
 	makeTableHeadsFixed(phpContext) {
 		const elem = $('#tablelines');
-		const topPos = phpContext.conf['UPBUTTONS_FTH_THEME_USE_FIXED_TOPBAR'] ? '$(\'#id-top\').height()' : '0';
+		const topPos = phpContext.conf['UPBUTTON_FTH_THEME_USE_FIXED_TOPBAR'] ? $('#id-top').height() : 0;
 		if (elem.length) {
 			if (elem.find('tbody').length === 0) {
 				elem.prepend('<tbody></tbody>');

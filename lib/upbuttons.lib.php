@@ -142,12 +142,12 @@ function prepareJsContextUpButtons(): array
 	$langs->load('upbuttons@upbuttons');
 	$exports = [
 		'conf'        => [
-			'UPBUTTON_STICKY_TAB'                 => 'bool',
-			'UPBUTTON_HIDE_AVAILABLE_ACTION'      => 'bool',
-			'UPBUTTON_DISPLAY_FLOATING_MENU'      => 'bool',
-			'UPBUTTON_DISPLAY_FLOATING_MENU_TYPE' => 'string',
-			'UPBUTTON_FTH_ENABLE'                 => 'bool',
-			'UPBUTTON_USE_FIXED_TOPBAR'           => 'bool',
+			'UPBUTTON_STICKY_TAB'                  => 'bool',
+			'UPBUTTON_HIDE_AVAILABLE_ACTION'       => 'bool',
+			'UPBUTTON_DISPLAY_FLOATING_MENU'       => 'bool',
+			'UPBUTTON_DISPLAY_FLOATING_MENU_TYPE'  => 'string',
+			'UPBUTTON_FTH_ENABLE'                  => 'bool',
+			'UPBUTTON_FTH_THEME_USE_FIXED_TOPBAR' => 'bool',
 		],
 		'langs'       => ['LinksActions'],
 		'permissions' => [
