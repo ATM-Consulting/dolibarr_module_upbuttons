@@ -91,7 +91,11 @@ class modUpbuttons extends DolibarrModules
 		//							'workflow' => array('WORKFLOW_MODULE1_YOURACTIONTYPE_MODULE2'=>array('enabled'=>'isModEnabled("module1") && isModEnabled("module2")', 'picto'=>'yourpicto@upbuttons')) // Set here all workflow context managed by module
 		//                        );
 		$this->module_parts = array(
-			'js'=>array('/upbuttons/js/upbuttons.js.php')
+			'js'=>array(
+				'/upbuttons/js/upbuttons.js.php',
+				'/upbuttons/js/fixedtablehead.js.php',
+				'/upbuttons/js/jquery.floatThead.min.js',
+			)
 			,'css'=>array('/upbuttons/css/style.css')
 		);
 
