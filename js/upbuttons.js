@@ -244,13 +244,11 @@ ATM_MODULE_UPBUTTONS = {
 		$sideDrawer.find('.upbuttons-container').append(this.getListOfAvailableActions(phpContext, $standardButtonsContainer));
 
 		if ($sideDrawer.hasClass('--horizontal')) {
-			// in horizontal mode, the width of the floating menu should be the necessary
-			// width.
-			console.log($standardButtonsContainer.width());
+			// TODO: I get acceptable auto-width in horizontal mode. I leave the old
+			//       code commented because it doesn't have much effect, probably due
+			//       to the DOM structure changes that went with the refactoring
 			// $sideDrawer.width($standardButtonsContainer.width() + 80);
 		}
-		console.log($sideDrawer);
-
 
 		// close the drawer on click out
 		$(document).on("click", function (event) {
