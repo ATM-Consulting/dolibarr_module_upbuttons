@@ -1,253 +1,59 @@
 <?php
+/* Copyright (C) 2025 ATM Consulting <contact@atm-consulting.fr>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
-header('Content-Type: application/javascript');
-
-if (!defined('NOTOKENRENEWAL')) {
-	define('NOTOKENRENEWAL', 1);
+// Load Dolibarr environment
+$res = 0;
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
+if (! $res && ! empty($_SERVER['CONTEXT_DOCUMENT_ROOT'])) {
+	$res = @include $_SERVER['CONTEXT_DOCUMENT_ROOT'].'/main.inc.php';
+}
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
+$tmp = empty($_SERVER['SCRIPT_FILENAME']) ? '' : $_SERVER['SCRIPT_FILENAME'];
+$tmp2 = realpath(__FILE__);
+$i = strlen($tmp) - 1;
+$j = strlen($tmp2) - 1;
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i] == $tmp2[$j]) {
+	$i--;
+	$j--;
+}
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i + 1)).'/main.inc.php')) {
+	$res = @include substr($tmp, 0, ($i + 1)).'/main.inc.php';
+}
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i + 1))).'/main.inc.php')) {
+	$res = @include dirname(substr($tmp, 0, ($i + 1))).'/main.inc.php';
+}
+// Try main.inc.php using relative path
+if (! $res && file_exists('../../main.inc.php')) {
+	$res = @include '../../main.inc.php';
+}
+if (! $res && file_exists('../../../main.inc.php')) {
+	$res = @include '../../../main.inc.php';
+}
+if (! $res) {
+	die('Include of main fails');
 }
 
-require __DIR__ . '/../config.php';
-require_once __DIR__ . '/../backport/v17/core/lib/functions.lib.php';
+/** @var DoliDB $db */
 
-if (!$user->hasRight('upbuttons', 'UseAllButton') && !$user->hasRight('upbuttons', 'UseSingleButton'))
-	exit;
+// Print the contents of `upbuttons.js` and call `main()` with the PHP context.
 
-$langs->load('upbuttons@upbuttons')
+require_once dirname(__DIR__).'/lib/upbuttons.lib.php';
+echo file_get_contents(__DIR__.'/upbuttons.js').PHP_EOL;
 
-?>$(document).ready(function () {
-
-        $.fn.isInViewport = function () {
-        var elementTop = $(this).offset().top;
-        var elementBottom = elementTop+$(this).outerHeight();
-
-        var viewportTop = $(window).scrollTop();
-        var viewportBottom = viewportTop+$(window).height();
-        return elementBottom > viewportTop && elementTop < viewportBottom;
-    };
-
-	var $upbuttons_container = $('div.tabsAction').first();
-	window.setTimeout(getButtonInBanner, 300); //delai for js button
-	<?php
-	if ($user->hasRight('upbuttons', 'UseSingleButton')) {
-		echo '$("body").append("' . addslashes('<a href="javascript:;" id="justOneButton" style="display:none;">' . img_picto('', 'all@upbuttons') . '</a>') . '");';
-	}
-	?>
-
-
-	function scrollButtonsToUp() {
-		var scrollTop = $(window).scrollTop();
-		var scrollLeft = $(window).scrollLeft();
-		var wHeight = $(window).height();
-		var wWidth = $(window).width();
-
-		if (
-			((scrollTop + wHeight < originalElementTop) || (scrollLeft + wWidth < originalElementLeft))
-			&& $(window).width() > 1000  // disbled for smartphone
-		) {
-			//console.log("tabsAction not in screen ");
-<?php if( !getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
-			$upbuttons_container.css({
-				position: "fixed"
-				, bottom: '-1px'
-				, right: '-1px'
-				, 'background-color': '#fff'
-				, padding: '20px 0 5px 20px'
-				, border: '1px solid #e0e0e0'
-				, 'border-radius': '10px 0 0 0'
-				, 'margin': '0 0 0 0'
-				, 'opacity': 1
-			});
- <?php } ?>
-
-			$upbuttons_container.addClass('upbuttonsdiv');
-
-			$('#justOneButton').click(function () {
-
-				if ($upbuttons_container.is(":visible")) {
-					$upbuttons_container.hide();
-					$(this).css('bottom', 20);
-
-				} else {
-					$upbuttons_container.show();
-					$(this).css('bottom', $upbuttons_container.height() + 10);
-
-				}
-			});
-
-
-			<?php
-			if( !$user->hasRight('upbuttons', 'UseAllButton')
-		&& $user->hasRight('upbuttons', 'UseSingleButton')
-			) {
-			?>
-			$upbuttons_container.hide();
-			$('#justOneButton').css({
-				position: "fixed"
-				, bottom: '20px'
-				, right: '20px'
-				, 'margin': '0 0 0 0'
-				, 'opacity': 0.7
-			}).show();
-
-			<?php
-			}
-			?>
-		} else {
-			//console.log("tabsAction in screen ");
-			$upbuttons_container.removeAttr('style');
-			$upbuttons_container.removeClass('upbuttonsdiv');
-			$upbuttons_container.show();
-			$('#justOneButton').hide();
-		}
-	}
-
-	var editline_subtotal = -1; /* .indexOf returns -1 if the value to search for never occurs */
-	if (typeof referer !== 'undefined') editline_subtotal = referer.indexOf('action=editlinetitle');
-
-	if (editline_subtotal == -1 && ($upbuttons_container.length == 1 && ($upbuttons_container.find('.button').length > 0 || $upbuttons_container.find('.butAction').length > 0))) {
-		var originalElementTop = $upbuttons_container.offset().top;
-		var originalElementLeft = $upbuttons_container.offset().left;
-
-		if (originalElementTop <= 0) {
-			window.setTimeout(function () {
-				originalElementTop = $upbuttons_container.offset().top;
-				originalElementLeft = $upbuttons_container.offset().left;
-				scrollButtonsToUp();
-			}, 100);
-		}
-		$(window).resize(function () {
-			scrollButtonsToUp();
-            if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
-            else $('#upbuttons-floating-menu').show();
-
-		});
-
-		$(window).on('scroll', function () {
-			scrollButtonsToUp();
-            if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
-            else $('#upbuttons-floating-menu').show();
-		});
-
-		scrollButtonsToUp();
-	}
-
-<?php
-if( getDolGlobalInt('UPBUTTON_STICKY_TAB')) {
-?>
-	if($(window).width() > 1000 && $('.tabs').length > 0 && window.location.href.indexOf("&optioncss=print") == -1) { // disabled for smartphone and print
-		$('body').addClass('upbutton-allow-sticky-tab'); // for css filter
-
-		if ('IntersectionObserver' in window) {
-			// Skicky tabs animation
-			var observer = new IntersectionObserver(function (entries) {
-				if (entries[0].intersectionRatio === 0) {
-					document.querySelector("div.tabs").classList.add("nav-container-sticky");
-					$('.nav-container-sticky').css('top', $("#id-top").outerHeight() + 'px');
-				} else if (entries[0].intersectionRatio > 0) {
-					document.querySelector("div.tabs").classList.remove("nav-container-sticky");
-				}
-			}, {threshold: [0, 1]});
-
-			$('.tabs').before($('<div class="sentinal"></div>'));
-
-			// use timeout to determime position after other js loader like breadcrumb
-			setTimeout(function(){
-				var x = $('.sentinal').position();
-				$('.sentinal').css('position', 'absolute');
-				$('.sentinal').css('top', (x.top - $("#id-top").height())  + 'px');
-			}, 300);
-
-			observer.observe(document.querySelector(".sentinal"));
-		}
-	}
-<?php
-}
-?>
-});
-
-function getButtonInBanner() {
-	var $upbuttons_container = $('div.tabsAction').first();
-
-	//si les buttons d'actions sont de type input et donc renvoi des données via formulaire
-	const $upbuttons_container_form = $('div.tabsAction input');
-
-	if ($upbuttons_container.length == 0 || $upbuttons_container_form.length > 0) return;
-
-	$('div.fiche div.pagination').css('padding', 0);
-	$('div.fiche div.statusref').css('margin-bottom', '8px');
-	$('div.fiche div.statusref').after('<div id="nav-dropdown"></div>');
-
-	var $dropdownbutton = $("#nav-dropdown");
-
-	$ul = $('<ul style="z-index: 2"></ul>');
-	$ul.hide();
-
-	$upbuttons_container.find('a,#action-clone').each(function (i, item) {
-		$item = $(item);
-
-		if (!$item.hasClass('butActionRefused')) {
-			var $a = $item.clone(true, true);
-		}
-
-		$li = $('<li />');
-		$li.append($a);
-
-		$ul.append($li);
-
-	});
-
-    <?php if(!getDolGlobalInt('UPBUTTON_HIDE_AVAILABLE_ACTION')) {?>
-        $nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
-        $nav.hover(
-            function () {
-                $(this).find('ul').show();
-            }
-            , function () {
-                $(this).find('ul').hide();
-            }
-        );
-
-        $nav.append($ul);
-
-        $dropdownbutton.append($nav);
-    <?php } ?>
-
-	<?php if(getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
-
-        let menuClass = '--vertical';
-
-        <?php if(getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE') == 'horizontal') { ?>
-             menuClass = '--horizontal';
-        <?php } ?>
-
-        $nav = $('<div id="upbuttons-floating-menu" class="--closed ' + menuClass + '"><div class="upbuttons-floating-menu__flex-container"><div class="upbuttons-close-button"><span></span><span></span><span></span></div><div class="upbuttons-container"></div></div></div>');
-
-        $dropdownbutton.append($nav);
-        let ul = $($ul).clone();
-        ul.show();
-        $('.upbuttons-container').append(ul);
-        if(menuClass == '--horizontal'){
-             $('#upbuttons-floating-menu').width($('.upbuttons-container').width()+80);
-        }
-
-        $(document).on('click', '#upbuttons-floating-menu .upbuttons-close-button', function (event) {
-            $('#upbuttons-floating-menu').toggleClass('--closed');
-        });
-
-        $(document).on('mouseover', '#upbuttons-floating-menu.--closed .upbuttons-close-button', function (event) {
-            $('#upbuttons-floating-menu').toggleClass('--closed');
-        });
-
-        // sur click out close
-        $(document).on("click", function(event) {
-			if (!$(event.target).closest("#nav-dropdown").length) {
-            $('#upbuttons-floating-menu').addClass('--closed');
-            }
-        });
-    if ($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
-    else $('#upbuttons-floating-menu').show();
-
-	<?php } ?>
-
-
-}
+$jsContext = prepareJsContextUpButtons();
+echo 'ATM_MODULE_UPBUTTONS.main('.json_encode($jsContext).');'.PHP_EOL;
+$db->close();

@@ -7,7 +7,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it is useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -17,164 +17,79 @@
  */
 
 /**
- * 	\file		admin/upbuttons.php
- * 	\ingroup	upbuttons
- * 	\brief		This file is an example module setup page
- * 				Put some comments here
+ * \file     admin/upbuttons.php
+ * \ingroup   upbuttons
+ * \brief    Module setup page for UpButtons
  */
 // Dolibarr environment
-$res = @include("../../main.inc.php"); // From htdocs directory
+$res = @include '../../main.inc.php'; // From htdocs directory
 if (! $res) {
-    $res = @include("../../../main.inc.php"); // From "custom" directory
+	$res = @include '../../../main.inc.php'; // From "custom" directory
 }
 
 // Libraries
-require_once DOL_DOCUMENT_ROOT . "/core/lib/admin.lib.php";
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formsetup.class.php'; // Include the FormSetup class
 require_once '../lib/upbuttons.lib.php';
-require_once __DIR__ . '/../backport/v17/core/lib/functions.lib.php';
+require_once __DIR__.'/../backport/v17/core/lib/functions.lib.php';
 
 // Translations
-$langs->load("upbuttons@upbuttons");
-
-$newToken = function_exists('newToken') ? newToken() : $_SESSION['newtoken'];
+$langs->load('upbuttons@upbuttons');
+$langs->load('admin'); // For Save, Modify, Cancel buttons
 
 // Access control
 if (! $user->admin) {
-    accessforbidden();
+	accessforbidden();
 }
 
 // Parameters
 $action = GETPOST('action', 'alpha');
+$page_name = 'UpbuttonsSetup';
+
+$formSetup = new FormSetup($db);
+$item = $formSetup->newItem('UPBUTTON_STICKY_TAB')->setAsYesNo()->helpText = $langs->trans("UPBUTTON_STICKY_TAB_HELP");
+$item = $formSetup->newItem('UPBUTTON_HIDE_AVAILABLE_ACTION')->setAsYesNo();
+$item = $formSetup->newItem('UPBUTTON_DISPLAY_FLOATING_MENU')->setAsYesNo()->helpText = $langs->trans('UPBUTTON_DISPLAY_FLOATING_MENU_HELP');
+$item = $formSetup->newItem('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE')->setAsSelect(['vertical' => 'Vertical', 'horizontal' => 'Horizontal'])->cssClass = 'minwidth200';
+
 
 /*
  * Actions
  */
-if (preg_match('/set_(.*)/',$action,$reg))
-{
-	$code=$reg[1];
-	if (dolibarr_set_const($db, $code, GETPOST($code), 'chaine', 0, '', $conf->entity) > 0)
-	{
-		header("Location: ".$_SERVER["PHP_SELF"]);
-		exit;
-	}
-	else
-	{
-		dol_print_error($db);
-	}
-}
+include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 
-if (preg_match('/del_(.*)/',$action,$reg))
-{
-	$code=$reg[1];
-	if (dolibarr_del_const($db, $code, 0) > 0)
-	{
-		Header("Location: ".$_SERVER["PHP_SELF"]);
-		exit;
-	}
-	else
-	{
-		dol_print_error($db);
-	}
-}
 
 /*
  * View
  */
-$page_name = "UpbuttonsSetup";
 llxHeader('', $langs->trans($page_name));
+$varsForJs = [
+	'conf' => [
+		'UPBUTTON_DISPLAY_FLOATING_MENU' => getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')
+	]
+];
+?>
+<script>
+	document.addEventListener(
+		'DOMContentLoaded',
+		() => ATM_MODULE_UPBUTTONS.initSetupPage(<?php echo json_encode($varsForJs) ?>)
+	);
+</script>
+<?php
 
 // Subheader
-$linkback = '<a href="' . DOL_URL_ROOT . '/admin/modules.php">'
-    . $langs->trans("BackToModuleList") . '</a>';
-print_fiche_titre($langs->trans($page_name), $linkback);
+$linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php">'
+	.$langs->trans('BackToModuleList').'</a>';
+
+print load_fiche_titre($langs->trans($page_name), $linkback, 'title_setup');
 
 // Configuration header
 $head = upbuttonsAdminPrepareHead();
-dol_fiche_head(
-    $head,
-    'settings',
-    $langs->trans("Module104830Name"),
-    -1,
-    "upbuttons@upbuttons"
-);
 
-dol_fiche_end(-1);
+print dol_get_fiche_head($head, 'settings', $langs->trans($page_name), -1, "upbuttons@upbuttons");
+// Generate rows
+print $formSetup->generateOutput(true);
 
-// Setup page goes here
-$form=new Form($db);
-$var=false;
-print '<table class="noborder" width="100%">';
-print '<tr class="liste_titre">';
-print '<th>'.$langs->trans("Parameters").'</th>'."\n";
-print '<th align="center" width="20">&nbsp;</th>';
-print '<th align="center" width="100">'.$langs->trans("Value").'</th>'."\n";
-
-
-// Example with a yes / no select
-$var=!$var;
-print '<tr '.$bc[$var].'>';
-print '<td>';
-print $form->textwithtooltip( $langs->trans("ConvertTabToStickyTab") , $langs->trans("ConvertTabToStickyTabHelp"),2,1,img_help(1,''));
-print '</td>';
-print '<td align="center" width="20">&nbsp;</td>';
-print '<td align="right" width="300">';
-print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
-print '<input type="hidden" name="token" value="'.$newToken.'">';
-print '<input type="hidden" name="action" value="set_UPBUTTON_STICKY_TAB">';
-print $form->selectyesno("UPBUTTON_STICKY_TAB",getDolGlobalInt('UPBUTTON_STICKY_TAB'),1);
-print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
-print '</form>';
-print '</td></tr>';
-
-$var=!$var;
-print '<tr '.$bc[$var].'>';
-print '<td>';
-print $form->textwithtooltip( $langs->trans("HideAvailableActionButtons") , '',0,1,img_help(1,''));
-print '</td>';
-print '<td align="center" width="20">&nbsp;</td>';
-print '<td align="right" width="300">';
-print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
-print '<input type="hidden" name="token" value="'.$newToken.'">';
-print '<input type="hidden" name="action" value="set_UPBUTTON_HIDE_AVAILABLE_ACTION">';
-print $form->selectyesno("UPBUTTON_HIDE_AVAILABLE_ACTION",getDolGlobalInt('UPBUTTON_HIDE_AVAILABLE_ACTION'),1);
-print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
-print '</form>';
-print '</td></tr>';
-
-$var=!$var;
-print '<tr '.$bc[$var].'>';
-print '<td>';
-print $form->textwithtooltip( $langs->trans("DisplayFloatingMenu") , $langs->trans("DisplayFloatingMenuHelp"),2,1,img_help(1,''));
-print '</td>';
-print '<td align="center" width="20">&nbsp;</td>';
-print '<td align="right" width="300">';
-print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
-print '<input type="hidden" name="token" value="'.$newToken.'">';
-print '<input type="hidden" name="action" value="set_UPBUTTON_DISPLAY_FLOATING_MENU">';
-print $form->selectyesno("UPBUTTON_DISPLAY_FLOATING_MENU",getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU'),1);
-print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
-print '</form>';
-print '</td></tr>';
-
-
-
-if(getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) {
-	$var = ! $var;
-	print '<tr '.$bc[$var].'>';
-	print '<td>';
-	print $form->textwithtooltip($langs->trans("DisplayFloatingMenuType"), '', 0, 1, img_help(1, ''));
-	print '</td>';
-	print '<td align="center" width="20">&nbsp;</td>';
-	print '<td align="right" width="300">';
-	print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
-	print '<input type="hidden" name="token" value="'.$newToken.'">';
-	print '<input type="hidden" name="action" value="set_UPBUTTON_DISPLAY_FLOATING_MENU_TYPE">';
-	print Form::selectarray("UPBUTTON_DISPLAY_FLOATING_MENU_TYPE", array('vertical' => 'Vertical', 'horizontal' => 'Horizontal') , getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE'));
-	print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
-	print '</form>';
-	print '</td></tr>';
-}
-print '</table>';
+print dol_get_fiche_end();
 llxFooter();
-
 $db->close();
