@@ -146,6 +146,7 @@ function prepareJsContextUpButtons(): array
 			'UPBUTTON_HIDE_AVAILABLE_ACTION'      => 'bool',
 			'UPBUTTON_DISPLAY_FLOATING_MENU'      => 'bool',
 			'UPBUTTON_DISPLAY_FLOATING_MENU_TYPE' => 'string',
+			'UPBUTTON_USE_FIXED_TOPBAR'           => 'bool',
 		],
 		'langs'       => ['LinksActions'],
 		'permissions' => [
