@@ -91,45 +91,15 @@ ATM_MODULE_UPBUTTONS = {
 
 		const PROD_MODE = phpContext['dolibarr_main_prod'] ?? true;
 		this.DEBUG_MODE = !PROD_MODE;
-		const useAllButton = phpContext.permissions['UseAllButton'];
-		const useSingleButton = phpContext.permissions['UseSingleButton'];
+		const useAllButton = phpContext.permissions['upbuttons.UseAllButton'];
+		const useSingleButton = phpContext.permissions['upbuttons.UseSingleButton'];
 
-
-		// const htmlSingleButton = `<a href="javascript:;", id="justOneButton", style="display: none">${phpContext.picto['all']}</a>`;
-		// let $justOneButton = $(htmlSingleButton);
-		// if (useSingleButton) {
-		// 	$('body').append($justOneButton);
-		// }
-
-		setTimeout(() => this.startUpButtons(phpContext), 0);
+		if (useAllButton || useSingleButton) {
+			$(() => this.startUpButtons(phpContext));
+		}
 
 		if (phpContext.conf['UPBUTTON_STICKY_TAB']) {
-			if ($(window).width() > 1000 && $('.tabs').length > 0 && window.location.href.indexOf("&optioncss=print") == -1) { // disabled for smartphone and print
-				$('body').addClass('upbutton-allow-sticky-tab'); // for css filter
-
-				if ('IntersectionObserver' in window) {
-					// Skicky tabs animation
-					var observer = new IntersectionObserver(function (entries) {
-						if (entries[0].intersectionRatio === 0) {
-							document.querySelector("div.tabs").classList.add("nav-container-sticky");
-							$('.nav-container-sticky').css('top', $("#id-top").outerHeight() + 'px');
-						} else if (entries[0].intersectionRatio > 0) {
-							document.querySelector("div.tabs").classList.remove("nav-container-sticky");
-						}
-					}, {threshold: [0, 1]});
-
-					$('.tabs').before($('<div class="sentinal"></div>'));
-
-					// use timeout to determime position after other js loader like breadcrumb
-					setTimeout(function () {
-						var x = $('.sentinal').position();
-						$('.sentinal').css('position', 'absolute');
-						$('.sentinal').css('top', (x.top - $("#id-top").height()) + 'px');
-					}, 300);
-
-					observer.observe(document.querySelector(".sentinal"));
-				}
-			}
+			$(() => this.makeTabBarSticky(phpContext));
 		}
 
 		if (phpContext.conf['UPBUTTON_FTH_ENABLE']) {
@@ -146,22 +116,16 @@ ATM_MODULE_UPBUTTONS = {
 		const editline_subtotal = (document.referrer || '').indexOf('action=editlinetitle') !== -1;
 		if (editline_subtotal) {
 			// disable when we are editing a line title using subtotal
-			console.log('editline_subtotal: ', editline_subtotal);
 			return;
 		}
 		if ($standardButtonsContainer.length !== 1) {
 			// we must have found the container
-			console.log('No action button container (or duplicates)', $standardButtonsContainer);
 			return;
 		}
 		if ($standardButtonsContainer.find('.button,.butAction').length === 0) {
 			// the container must contain at least one button
-			console.log('No action buttons found');
 			return;
 		}
-
-		// let originalElementTop = Math.round($standardButtonsContainer.offset().top);
-		// let originalElementLeft = Math.round($standardButtonsContainer.offset().left);
 
 		// navigation dropdown (B)
 		const $dropdownButton = this.getDropdownButton(phpContext, $standardButtonsContainer).insertAfter('div.fiche div.statusref');
@@ -177,21 +141,24 @@ ATM_MODULE_UPBUTTONS = {
 
 		const showUpButtons = () => {
 			$sideDrawerMenu.show();
-
 			if ($(window).width() > 1000) {
-				$dropdownButton.show();
-				$('div.fiche').addClass('upbuttons-style-override');
 				// the rest is disabled on small screens
+				if (!$dropdownButton.hasClass('--disabled')) {
+					$dropdownButton.show();
+				}
+				$('div.fiche').addClass('--upbuttons-style-override');
 
-				$standardButtonsContainer.addClass('upbuttons-fixed');
+				if (!$standardButtonsContainer.hasClass('upbuttons-display-floating-menu')) {
+					$standardButtonsContainer.addClass('--upbuttons-fixed');
+				}
 			}
 		};
 
 		const hideUpButtons = () => {
 			$dropdownButton.hide();
 			$sideDrawerMenu.hide();
-			$('div.fiche').removeClass('upbuttons-style-override');
-			$standardButtonsContainer.removeClass('upbuttons-fixed');
+			$('div.fiche').removeClass('--upbuttons-style-override');
+			$standardButtonsContainer.removeClass('--upbuttons-fixed');
 		};
 
 		/**
@@ -228,51 +195,10 @@ ATM_MODULE_UPBUTTONS = {
 			const wWidth = $(window).width();
 
 			if ($measuringSpan.isInViewport()) {
-				// if (this.DEBUG_MODE) console.log("original visible -> hide sticky copies");
 				hideUpButtons();
 			} else {
-				// if (this.DEBUG_MODE) console.log("original not visible -> show sticky copies");
 				showUpButtons();
 			}
-
-			// if (((scrollTop + wHeight >= originalElementTop) && (scrollLeft + wWidth >= originalElementLeft)) && $(window).width() > 1000)  // disbled for smartphone
-			// {
-			// 	hideUpButtons();
-			// }
-
-			// if (originalElementTop <= 0) {
-			// 	originalElementTop = $standardButtonsContainer.offset().top;
-			// 	originalElementLeft = $standardButtonsContainer.offset().left;
-			// }
-			// ) {
-			//
-			// $('#justOneButton').click(function () {
-			//
-			// 	if ($standardButtonsContainer.is(":visible")) {
-			// 		$standardButtonsContainer.hide();
-			// 		$(this).css('bottom', 20);
-			//
-			// 	} else {
-			// 		$standardButtonsContainer.show();
-			// 		$(this).css('bottom', $standardButtonsContainer.height() + 10);
-			//
-			// 	}
-			// });
-
-			// if (useSingleButton && !useAllButton) {
-			// 	$standardButtonsContainer.hide();
-			// 	$('#justOneButton').css({
-			// 		position: "fixed",
-			// 		bottom: '20px',
-			// 		right: '20px',
-			// 		'margin': '0 0 0 0',
-			// 		'opacity': 0.7
-			// 	}).show();
-			//
-			// }
-			// } else {
-			// 	// $('#justOneButton').hide();
-			// }
 		};
 
 		$(window).on('scroll', refresh);
@@ -318,10 +244,10 @@ ATM_MODULE_UPBUTTONS = {
 		$sideDrawer.find('.upbuttons-container').append(this.getListOfAvailableActions(phpContext, $standardButtonsContainer));
 
 		if ($sideDrawer.hasClass('--horizontal')) {
-			// in horizontal mode, the width of the floating menu should be increased
-			// by 80px
+			// in horizontal mode, the width of the floating menu should be the necessary
+			// width.
 			console.log($standardButtonsContainer.width());
-			$sideDrawer.width($standardButtonsContainer.width() + 80);
+			// $sideDrawer.width($standardButtonsContainer.width() + 80);
 		}
 		console.log($sideDrawer);
 
@@ -407,6 +333,35 @@ ATM_MODULE_UPBUTTONS = {
 				zIndex: 50
 			});
 			setTimeout(() => listelem.floatThead('reflow'), 0);
+		}
+	},
+
+	makeTabBarSticky(phpContext) {
+		if ($(window).width() > 1000 && $('.tabs').length > 0 && window.location.href.indexOf("&optioncss=print") === -1) { // disabled for smartphone and print
+			$('body').addClass('upbutton-allow-sticky-tab'); // for css filter
+
+			if ('IntersectionObserver' in window) {
+				// Skicky tabs animation
+				var observer = new IntersectionObserver(function (entries) {
+					if (entries[0].intersectionRatio === 0) {
+						document.querySelector("div.tabs").classList.add("nav-container-sticky");
+						$('.nav-container-sticky').css('top', $("#id-top").outerHeight() + 'px');
+					} else if (entries[0].intersectionRatio > 0) {
+						document.querySelector("div.tabs").classList.remove("nav-container-sticky");
+					}
+				}, {threshold: [0, 1]});
+
+				$('.tabs').before($('<div class="sentinal"></div>'));
+
+				// use timeout to determime position after other js loader like breadcrumb
+				setTimeout(function () {
+					var x = $('.sentinal').position();
+					$('.sentinal').css('position', 'absolute');
+					$('.sentinal').css('top', (x.top - $("#id-top").height()) + 'px');
+				}, 300);
+
+				observer.observe(document.querySelector(".sentinal"));
+			}
 		}
 	}
 };

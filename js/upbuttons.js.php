@@ -50,6 +50,7 @@ if (! $res) {
 /** @var DoliDB $db */
 
 // Print the contents of `upbuttons.js` and call `main()` with the PHP context.
+header('Content-Type: application/javascript');
 
 require_once dirname(__DIR__).'/lib/upbuttons.lib.php';
 echo file_get_contents(__DIR__.'/upbuttons.js').PHP_EOL;

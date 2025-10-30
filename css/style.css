@@ -220,7 +220,7 @@ table.stable-columns tr > td:nth-child(2) {
 	max-width: 250px;
 }
 
-div.tabsAction.upbuttons-fixed {
+div.tabsAction.--upbuttons-fixed {
 	position: fixed;
 	bottom: -1px;
 	right: -1px;
@@ -232,11 +232,11 @@ div.tabsAction.upbuttons-fixed {
 	opacity: 1;
 }
 
-div.fiche.upbuttons-style-override div.pagination {
+div.fiche.--upbuttons-style-override div.pagination {
 	padding: 0;
 }
 
-div.fiche.upbuttons-style-override div.statusref {
+div.fiche.--upbuttons-style-override div.statusref {
 	margin-bottom: 8px;
 }
 
