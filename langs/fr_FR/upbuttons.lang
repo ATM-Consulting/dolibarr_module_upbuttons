@@ -17,4 +17,5 @@ UPBUTTON_DISPLAY_FLOATING_MENU=Afficher les boutons dans un menu flottant
 UPBUTTON_DISPLAY_FLOATING_MENU_HELP=Les boutons seront disponibles dans un menu flottant sur la droite de la page (type "Hamburger")
 UPBUTTON_DISPLAY_FLOATING_MENU_TYPE=Sens d’affichage des boutons dans le menu flottant
 UPBUTTON_FTH_ENABLE=Activer les en-têtes de tableau figés
+UPBUTTON_FTH_STICKY_FILTERS=Figer également les filtres des colonnes
 UPBUTTON_FTH_THEME_USE_FIXED_TOPBAR=Activez cette option si votre thème Dolibarr utilise un menu haut fixe

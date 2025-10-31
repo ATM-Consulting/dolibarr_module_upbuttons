@@ -147,7 +147,8 @@ function prepareJsContextUpButtons(): array
 			'UPBUTTON_DISPLAY_FLOATING_MENU'       => 'bool',
 			'UPBUTTON_DISPLAY_FLOATING_MENU_TYPE'  => 'string',
 			'UPBUTTON_FTH_ENABLE'                  => 'bool',
-			'UPBUTTON_FTH_THEME_USE_FIXED_TOPBAR' => 'bool',
+			'UPBUTTON_FTH_THEME_USE_FIXED_TOPBAR'  => 'bool',
+			'UPBUTTON_FTH_STICKY_FILTERS'          => 'bool',
 		],
 		'langs'       => ['LinksActions'],
 		'permissions' => [

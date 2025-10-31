@@ -101,7 +101,6 @@ ATM_MODULE_UPBUTTONS = {
 		if (phpContext.conf['UPBUTTON_STICKY_TAB']) {
 			$(() => this.makeTabBarSticky(phpContext));
 		}
-
 		if (phpContext.conf['UPBUTTON_FTH_ENABLE']) {
 			// fixedtablehead feature
 			$(() => this.makeTableHeadsFixed(phpContext));
@@ -301,49 +300,52 @@ ATM_MODULE_UPBUTTONS = {
 	 * @param {Object} phpContext
 	 */
 	makeTableHeadsFixed(phpContext) {
-		const elem = $('#tablelines');
 		const topPos = phpContext.conf['UPBUTTON_FTH_THEME_USE_FIXED_TOPBAR'] ? $('#id-top').height() : 0;
-		if (elem.length) {
-			if (elem.find('tbody').length === 0) {
-				elem.prepend('<tbody></tbody>');
-				elem.find('tr').each(function () {
-					$(this).remove().appendTo('#tablelines tbody');
+
+		/**
+		 * Make table header sticky.
+		 *
+		 * @param {string} mainTableSelector DOM selector identifying the <table> we target
+		 * @param {string} headerTrSelector  DOM selector identifying table rows that should be sticky.
+		 */
+		const applyFTH = (mainTableSelector, headerTrSelector) => {
+			const $elem = $(mainTableSelector);
+			if ($elem.length === 0) {
+				// console.log(`FTH: could not find ${mainTableSelector}.`);
+				return;
+			}
+
+			const $tbody = $elem.find('tbody');
+			const $thead = $elem.find('thead');
+
+			if ($tbody.length === 0) {
+				// if the table has no <tbody>, create one and move all rows
+				// to that tbody
+				$elem.prepend('<tbody></tbody>');
+				$elem.find('tr').each(function (n, tr) {
+					$(tr).remove().appendTo($tbody);
 				});
 			}
-
-			if (elem.find('thead').length === 0) {
-				elem.prepend('<thead></thead>');
-				elem.find('tr:first').remove().appendTo('#tablelines thead');
+			if ($thead.length === 0) {
+				$elem.prepend('<thead></thead>');
+				$elem.find(headerTrSelector).remove().appendTo($elem.find('thead'));
 			}
-
-			elem.floatThead({
-				position: 'fixed',
-				top: topPos,
-				zIndex: 50
-			});
-		}
-
-		const listelem = $('table.liste.listwithfilterbefore:not(.formdoc)');
-		if (listelem.length) {
-			if (listelem.find('tbody').length === 0) {
-				listelem.prepend('<tbody></tbody>');
-				listelem.find('tr').each(function () {
-					$(this).remove().appendTo(listelem.find('tbody'));
-				});
-			}
-
-			if (listelem.find('thead').length === 0) {
-				listelem.prepend('<thead></thead>');
-				listelem.find('tr.liste_titre').remove().appendTo(listelem.find('thead'));
-			}
-
-			listelem.floatThead({
+			$elem.floatThead({
 				position: 'fixed',
 				top: topPos,
 				zIndex: 50
 			});
 			setTimeout(() => listelem.floatThead('reflow'), 0);
+		};
+
+		applyFTH('#tablelines', 'tr:first');
+
+		let trSelector = 'tr.liste_titre';
+		if (phpContext.conf['UPBUTTON_FTH_STICKY_FILTERS']) {
+			trSelector += ',tr.liste_titre_filter';
 		}
+		applyFTH('table.liste:has(tr.liste_titre):not(.formdoc)', trSelector);
+
 	},
 
 	makeTabBarSticky(phpContext) {

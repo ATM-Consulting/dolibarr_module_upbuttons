@@ -55,6 +55,7 @@ $item = $formSetup->newItem('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE')->setAsSelect(
 $item = $formSetup->newItem('UPBUTTON_STICKY_TAB')->setAsYesNo()->helpText = $langs->trans('UPBUTTON_STICKY_TAB_HELP');
 $item = $formSetup->newItem('UPBUTTON_FTH_ENABLE')->setAsYesNo();
 $item = $formSetup->newItem('UPBUTTON_FTH_THEME_USE_FIXED_TOPBAR')->setAsYesNo();
+$item = $formSetup->newItem('UPBUTTON_FTH_STICKY_FILTERS')->setAsYesNo();
 
 /*
  * Actions
