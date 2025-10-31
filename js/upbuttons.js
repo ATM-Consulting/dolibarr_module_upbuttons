@@ -218,11 +218,13 @@ ATM_MODULE_UPBUTTONS = {
 	 */
 	getDropdownButton(phpContext, $standardButtonsContainer) {
 		const $dropdownButton = $(phpContext.html['upbuttonsNavDropdown']);
-		const $ul = this.getListOfAvailableActions(phpContext, $standardButtonsContainer);
 		if (phpContext.conf['UPBUTTON_HIDE_AVAILABLE_ACTION'] ?? null) {
 			$dropdownButton.addClass('--disabled');
 		}
-		$dropdownButton.find('nav > ul').replaceWith($ul);
+		else {
+			const $ul = this.getListOfAvailableActions(phpContext, $standardButtonsContainer);
+			$dropdownButton.find('nav > ul').replaceWith($ul);
+		}
 		return $dropdownButton;
 	},
 
@@ -269,7 +271,7 @@ ATM_MODULE_UPBUTTONS = {
 	 * @returns {jQuery}
 	 */
 	getListOfAvailableActions(phpContext, $standardButtonsContainer) {
-		// clone each action button, except disabled ones, into a new <ul>.
+		// clone each action button, except disabled ones, and put them in the new <ul>
 		const $ul = $('<ul class="upbuttons-list-of-action-buttons"></ul>');
 		const $allButtons = $standardButtonsContainer.find('a,#action-clone');
 		$allButtons.each(function (i, item) {
@@ -277,7 +279,17 @@ ATM_MODULE_UPBUTTONS = {
 			if ($item.hasClass('butActionRefused')) {
 				return;
 			}
-			$ul.append($('<li></li>').append($item.clone(true, true)));
+			// FIX: when the item has an id, duplicating the id could cause bugs.
+			// For this reason, we remove the ID before cloning, then we put it back.
+			// The old version cloned events ($item.clone(true, true)) but there was
+			// the problem of duplicate IDs. So instead of cloning events, we forward
+			// click events to the original (which means other events won't be forwarded).
+			const initialId = $item.attr('id');
+			if (initialId) $item.removeAttr('id');
+			const $clone = $item.clone(false);
+			$clone.click(() => $item.trigger('click'));
+			$ul.append($('<li></li>').append($clone));
+			if (initialId) $item.attr('id', initialId);
 		});
 		return $ul;
 	},
