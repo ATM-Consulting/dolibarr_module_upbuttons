@@ -241,11 +241,14 @@ div.fiche.--upbuttons-style-override div.statusref {
 }
 
 #upbuttons-nav ul {
-	display: none;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0.2s, opacity 0.2s linear;
 }
 
 #upbuttons-nav:hover ul {
-	display: block;
+	visibility: visible;
+	opacity: 1;
 }
 
 ul.upbuttons-list-of-action-buttons {
