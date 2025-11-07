@@ -48,14 +48,18 @@ $page_name = 'UpbuttonsSetup';
 
 $formSetup = new FormSetup($db);
 $item = $formSetup->newItem('UPBUTTON_HIDE_AVAILABLE_ACTION')->setAsYesNo();
+
+$cssClassDepends = '--depends_UPBUTTON_DISPLAY_FLOATING_MENU';
 $item = $formSetup->newItem('UPBUTTON_DISPLAY_FLOATING_MENU')->setAsYesNo()->helpText = $langs->trans('UPBUTTON_DISPLAY_FLOATING_MENU_HELP');
-$item = $formSetup->newItem('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE')->setAsSelect(['vertical' => 'Vertical', 'horizontal' => 'Horizontal'])->cssClass = 'minwidth200';
+$item = $formSetup->newItem('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE')->setAsSelect(['vertical' => 'Vertical', 'horizontal' => 'Horizontal'])->cssClass = 'minwidth200 '.$cssClassDepends;
 
 // sticky / fixed features
 $item = $formSetup->newItem('UPBUTTON_STICKY_TAB')->setAsYesNo()->helpText = $langs->trans('UPBUTTON_STICKY_TAB_HELP');
+
 $item = $formSetup->newItem('UPBUTTON_FTH_ENABLE')->setAsYesNo();
-$item = $formSetup->newItem('UPBUTTON_FTH_THEME_USE_FIXED_TOPBAR')->setAsYesNo();
-$item = $formSetup->newItem('UPBUTTON_FTH_STICKY_FILTERS')->setAsYesNo();
+$cssClassDepends = '--depends_UPBUTTON_FTH_ENABLE';
+$item = $formSetup->newItem('UPBUTTON_FTH_THEME_USE_FIXED_TOPBAR')->setAsYesNo()->cssClass = $cssClassDepends;
+$item = $formSetup->newItem('UPBUTTON_FTH_STICKY_FILTERS')->setAsYesNo()->cssClass = $cssClassDepends;
 
 /*
  * Actions

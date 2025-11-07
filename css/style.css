@@ -261,3 +261,7 @@ ul.upbuttons-list-of-action-buttons {
 	position: absolute;
 	right: 0;
 }
+
+table:has(#del_UPBUTTON_FTH_ENABLE[style*="display: none"])  tr:has(.--depends_UPBUTTON_FTH_ENABLE) {
+	display: none;
+}
