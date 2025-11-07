@@ -335,7 +335,7 @@ ATM_MODULE_UPBUTTONS = {
 				top: topPos,
 				zIndex: 50
 			});
-			setTimeout(() => listelem.floatThead('reflow'), 0);
+			setTimeout(() => $elem.floatThead('reflow'), 0);
 		};
 
 		applyFTH('#tablelines', 'tr:first');
