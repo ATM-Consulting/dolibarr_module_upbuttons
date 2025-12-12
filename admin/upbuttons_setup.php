@@ -23,16 +23,14 @@
  * 				Put some comments here
  */
 // Dolibarr environment
-$res = @include("../../main.inc.php"); // From htdocs directory
+$res = @include "../../main.inc.php"; // From htdocs directory
 if (! $res) {
-    $res = @include("../../../main.inc.php"); // From "custom" directory
+	$res = @include "../../../main.inc.php"; // From "custom" directory
 }
 
 // Libraries
 require_once DOL_DOCUMENT_ROOT . "/core/lib/admin.lib.php";
 require_once '../lib/upbuttons.lib.php';
-require_once __DIR__ . '/../backport/v17/core/lib/functions.lib.php';
-
 // Translations
 $langs->load("upbuttons@upbuttons");
 
@@ -40,7 +38,7 @@ $newToken = function_exists('newToken') ? newToken() : $_SESSION['newtoken'];
 
 // Access control
 if (! $user->admin) {
-    accessforbidden();
+	accessforbidden();
 }
 
 // Parameters
@@ -49,30 +47,22 @@ $action = GETPOST('action', 'alpha');
 /*
  * Actions
  */
-if (preg_match('/set_(.*)/',$action,$reg))
-{
+if (preg_match('/set_(.*)/', $action, $reg)) {
 	$code=$reg[1];
-	if (dolibarr_set_const($db, $code, GETPOST($code), 'chaine', 0, '', $conf->entity) > 0)
-	{
+	if (dolibarr_set_const($db, $code, GETPOST($code), 'chaine', 0, '', $conf->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
-	}
-	else
-	{
+	} else {
 		dol_print_error($db);
 	}
 }
 
-if (preg_match('/del_(.*)/',$action,$reg))
-{
+if (preg_match('/del_(.*)/', $action, $reg)) {
 	$code=$reg[1];
-	if (dolibarr_del_const($db, $code, 0) > 0)
-	{
+	if (dolibarr_del_const($db, $code, 0) > 0) {
 		Header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
-	}
-	else
-	{
+	} else {
 		dol_print_error($db);
 	}
 }
@@ -85,17 +75,17 @@ llxHeader('', $langs->trans($page_name));
 
 // Subheader
 $linkback = '<a href="' . DOL_URL_ROOT . '/admin/modules.php">'
-    . $langs->trans("BackToModuleList") . '</a>';
+	. $langs->trans("BackToModuleList") . '</a>';
 print_fiche_titre($langs->trans($page_name), $linkback);
 
 // Configuration header
 $head = upbuttonsAdminPrepareHead();
 dol_fiche_head(
-    $head,
-    'settings',
-    $langs->trans("Module104830Name"),
-    -1,
-    "upbuttons@upbuttons"
+	$head,
+	'settings',
+	$langs->trans("Module104830Name"),
+	-1,
+	"upbuttons@upbuttons"
 );
 
 dol_fiche_end(-1);
@@ -114,14 +104,14 @@ print '<th align="center" width="100">'.$langs->trans("Value").'</th>'."\n";
 $var=!$var;
 print '<tr '.$bc[$var].'>';
 print '<td>';
-print $form->textwithtooltip( $langs->trans("ConvertTabToStickyTab") , $langs->trans("ConvertTabToStickyTabHelp"),2,1,img_help(1,''));
+print $form->textwithtooltip($langs->trans("ConvertTabToStickyTab"), $langs->trans("ConvertTabToStickyTabHelp"), 2, 1, img_help(1, ''));
 print '</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 print '<td align="right" width="300">';
 print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
 print '<input type="hidden" name="token" value="'.$newToken.'">';
 print '<input type="hidden" name="action" value="set_UPBUTTON_STICKY_TAB">';
-print $form->selectyesno("UPBUTTON_STICKY_TAB",getDolGlobalInt('UPBUTTON_STICKY_TAB'),1);
+print $form->selectyesno("UPBUTTON_STICKY_TAB", getDolGlobalInt('UPBUTTON_STICKY_TAB'), 1);
 print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 print '</form>';
 print '</td></tr>';
@@ -129,14 +119,14 @@ print '</td></tr>';
 $var=!$var;
 print '<tr '.$bc[$var].'>';
 print '<td>';
-print $form->textwithtooltip( $langs->trans("HideAvailableActionButtons") , '',0,1,img_help(1,''));
+print $form->textwithtooltip($langs->trans("HideAvailableActionButtons"), '', 0, 1, img_help(1, ''));
 print '</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 print '<td align="right" width="300">';
 print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
 print '<input type="hidden" name="token" value="'.$newToken.'">';
 print '<input type="hidden" name="action" value="set_UPBUTTON_HIDE_AVAILABLE_ACTION">';
-print $form->selectyesno("UPBUTTON_HIDE_AVAILABLE_ACTION",getDolGlobalInt('UPBUTTON_HIDE_AVAILABLE_ACTION'),1);
+print $form->selectyesno("UPBUTTON_HIDE_AVAILABLE_ACTION", getDolGlobalInt('UPBUTTON_HIDE_AVAILABLE_ACTION'), 1);
 print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 print '</form>';
 print '</td></tr>';
@@ -144,21 +134,21 @@ print '</td></tr>';
 $var=!$var;
 print '<tr '.$bc[$var].'>';
 print '<td>';
-print $form->textwithtooltip( $langs->trans("DisplayFloatingMenu") , $langs->trans("DisplayFloatingMenuHelp"),2,1,img_help(1,''));
+print $form->textwithtooltip($langs->trans("DisplayFloatingMenu"), $langs->trans("DisplayFloatingMenuHelp"), 2, 1, img_help(1, ''));
 print '</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 print '<td align="right" width="300">';
 print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
 print '<input type="hidden" name="token" value="'.$newToken.'">';
 print '<input type="hidden" name="action" value="set_UPBUTTON_DISPLAY_FLOATING_MENU">';
-print $form->selectyesno("UPBUTTON_DISPLAY_FLOATING_MENU",getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU'),1);
+print $form->selectyesno("UPBUTTON_DISPLAY_FLOATING_MENU", getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU'), 1);
 print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 print '</form>';
 print '</td></tr>';
 
 
 
-if(getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) {
+if (getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) {
 	$var = ! $var;
 	print '<tr '.$bc[$var].'>';
 	print '<td>';
@@ -169,7 +159,7 @@ if(getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) {
 	print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
 	print '<input type="hidden" name="token" value="'.$newToken.'">';
 	print '<input type="hidden" name="action" value="set_UPBUTTON_DISPLAY_FLOATING_MENU_TYPE">';
-	print Form::selectarray("UPBUTTON_DISPLAY_FLOATING_MENU_TYPE", array('vertical' => 'Vertical', 'horizontal' => 'Horizontal') , getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE'));
+	print Form::selectarray("UPBUTTON_DISPLAY_FLOATING_MENU_TYPE", array('vertical' => 'Vertical', 'horizontal' => 'Horizontal'), getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE'));
 	print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 	print '</form>';
 	print '</td></tr>';
