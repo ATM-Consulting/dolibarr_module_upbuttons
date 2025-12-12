@@ -1,17 +1,21 @@
 Module104830Name = Upbuttons
-Module104830Desc = Module affichant en flottant les boutons d'actions d'une fiche
+Module104830Desc = Module affichant en flottant les boutons d'actions d'une fiche et apporte d'autres fonctionnalités d'amélioration de l'interface
 
 ATMAbout = Ce module a été développé par <a href="http://www.atm-consulting.fr" target="_blank">ATM Consulting</a><br>Vous pouvez retrouver la documentation sur notre <a href="http://wiki.atm-consulting.fr/index.php/Accueil" target="_blank">wiki</a><br><br>Pour toute question technique ou retour, contactez-nous sur <a href="mailto:support@atm-consulting.fr">support@atm-consulting.fr</a><br><br>Pour toute question commerciale, contactez-nous sur <a href="mailto:contact@atm-consulting.fr">contact@atm-consulting.fr</a> ou au +33 9 77 19 50 70<br><br>Retrouvez nos autres modules sur <a href="http://www.dolistore.com/search.php?orderby=position&orderway=desc&search_query=atm&submit_search=Rechercher" target="_blank">Dolistore</a>
 
 UpbuttonsSetup = Configuration du module Upbuttons
 UpbuttonsAbout = A propos du module Upbuttons
+
 UseAllButton=Utiliser le remontoir de boutons
 UseSingleButton=Utilise le mode un seul bouton
 LinksActions=Actions disponibles
 
-ConvertTabToStickyTab = Garder affiché les onglets des fiches
-ConvertTabToStickyTabHelp = Lorsque vous faites défiler la page les onglets restent affichés au premier plan, collés au menu principal. Cette option n'est compatible qu'à partir de la version 10 de Dolibarr. Cette option n'est probablement pas conpatible avec des thèmes autres que ceux fournis par défaut avec Dolibarr.
-HideAvailableActionButtons = Cacher le bouton "Actions disponibles"
-DisplayFloatingMenu=Afficher les boutons dans un menu flottant
-DisplayFloatingMenuHelp=Les boutons seront disponibles dans un menu flottant sur la droite de la pagé (type "Hamburger")
-DisplayFloatingMenuType=Sens d'affichage des boutons dans le menu flottant
+UPBUTTON_STICKY_TAB=Garder toujours visibles les onglets des fiches
+UPBUTTON_STICKY_TAB_HELP=Lorsque vous faites défiler la page les onglets restent affichés au premier plan, collés au menu principal. Cette option n’est compatible qu’à partir de la version 10 de Dolibarr. Cette option n’est probablement pas conpatible avec des thèmes autres que ceux fournis par défaut avec Dolibarr.
+UPBUTTON_HIDE_AVAILABLE_ACTION=Cacher le bouton « Actions disponibles »
+UPBUTTON_DISPLAY_FLOATING_MENU=Afficher les boutons dans un menu flottant
+UPBUTTON_DISPLAY_FLOATING_MENU_HELP=Les boutons seront disponibles dans un menu flottant sur la droite de la page (type "Hamburger")
+UPBUTTON_DISPLAY_FLOATING_MENU_TYPE=Sens d’affichage des boutons dans le menu flottant
+UPBUTTON_FTH_ENABLE=Activer les en-têtes de tableau figés
+UPBUTTON_FTH_STICKY_FILTERS=Figer également les filtres des colonnes
+UPBUTTON_FTH_THEME_USE_FIXED_TOPBAR=Activez cette option si votre thème Dolibarr utilise un menu haut fixe
