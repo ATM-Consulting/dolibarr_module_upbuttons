@@ -16,3 +16,7 @@ UPBUTTON_HIDE_AVAILABLE_ACTION=Hide the “Available actions” button
 UPBUTTON_DISPLAY_FLOATING_MENU=Display buttons in a floating menu
 UPBUTTON_DISPLAY_FLOATING_MENU_HELP=Buttons will be displayed in a floating menu on the right side of the page (“hamburger”-style menu)
 UPBUTTON_DISPLAY_FLOATING_MENU_TYPE=Direction in which buttons are stacked in the floating menu
+
+UPBUTTON_FTH_ENABLE=Enable sticky column headers for Dolibarr lists
+UPBUTTON_FTH_STICKY_FILTERS=Also make column filters sticky
+UPBUTTON_FTH_THEME_USE_FIXED_TOPBAR=If your Dolibarr theme has a sticky top menu, enable this option
