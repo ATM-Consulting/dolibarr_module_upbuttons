@@ -1,4 +1,19 @@
 <?php
+/* Copyright (C) 2025 ATM Consulting
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 
 header('Content-Type: application/javascript');
 
@@ -7,7 +22,7 @@ if (!defined('NOTOKENRENEWAL')) {
 }
 
 require __DIR__ . '/../config.php';
-require_once __DIR__ . '/../backport/v17/core/lib/functions.lib.php';
+
 
 if (!$user->hasRight('upbuttons', 'UseAllButton') && !$user->hasRight('upbuttons', 'UseSingleButton'))
 	exit;
@@ -16,14 +31,14 @@ $langs->load('upbuttons@upbuttons')
 
 ?>$(document).ready(function () {
 
-        $.fn.isInViewport = function () {
-        var elementTop = $(this).offset().top;
-        var elementBottom = elementTop+$(this).outerHeight();
+		$.fn.isInViewport = function () {
+		var elementTop = $(this).offset().top;
+		var elementBottom = elementTop+$(this).outerHeight();
 
-        var viewportTop = $(window).scrollTop();
-        var viewportBottom = viewportTop+$(window).height();
-        return elementBottom > viewportTop && elementTop < viewportBottom;
-    };
+		var viewportTop = $(window).scrollTop();
+		var viewportBottom = viewportTop+$(window).height();
+		return elementBottom > viewportTop && elementTop < viewportBottom;
+	};
 
 	var $upbuttons_container = $('div.tabsAction').first();
 	window.setTimeout(getButtonInBanner, 300); //delai for js button
@@ -45,7 +60,7 @@ $langs->load('upbuttons@upbuttons')
 			&& $(window).width() > 1000  // disbled for smartphone
 		) {
 			//console.log("tabsAction not in screen ");
-<?php if( !getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
+<?php if ( !getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
 			$upbuttons_container.css({
 				position: "fixed"
 				, bottom: '-1px'
@@ -57,7 +72,7 @@ $langs->load('upbuttons@upbuttons')
 				, 'margin': '0 0 0 0'
 				, 'opacity': 1
 			});
- <?php } ?>
+<?php } ?>
 
 			$upbuttons_container.addClass('upbuttonsdiv');
 
@@ -76,10 +91,10 @@ $langs->load('upbuttons@upbuttons')
 
 
 			<?php
-			if( !$user->hasRight('upbuttons', 'UseAllButton')
-		&& $user->hasRight('upbuttons', 'UseSingleButton')
+			if ( !$user->hasRight('upbuttons', 'UseAllButton')
+			&& $user->hasRight('upbuttons', 'UseSingleButton')
 			) {
-			?>
+				?>
 			$upbuttons_container.hide();
 			$('#justOneButton').css({
 				position: "fixed"
@@ -89,7 +104,7 @@ $langs->load('upbuttons@upbuttons')
 				, 'opacity': 0.7
 			}).show();
 
-			<?php
+				<?php
 			}
 			?>
 		} else {
@@ -117,23 +132,23 @@ $langs->load('upbuttons@upbuttons')
 		}
 		$(window).resize(function () {
 			scrollButtonsToUp();
-            if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
-            else $('#upbuttons-floating-menu').show();
+			if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
+			else $('#upbuttons-floating-menu').show();
 
 		});
 
 		$(window).on('scroll', function () {
 			scrollButtonsToUp();
-            if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
-            else $('#upbuttons-floating-menu').show();
+			if($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
+			else $('#upbuttons-floating-menu').show();
 		});
 
 		scrollButtonsToUp();
 	}
 
 <?php
-if( getDolGlobalInt('UPBUTTON_STICKY_TAB')) {
-?>
+if ( getDolGlobalInt('UPBUTTON_STICKY_TAB')) {
+	?>
 	if($(window).width() > 1000 && $('.tabs').length > 0 && window.location.href.indexOf("&optioncss=print") == -1) { // disabled for smartphone and print
 		$('body').addClass('upbutton-allow-sticky-tab'); // for css filter
 
@@ -160,7 +175,7 @@ if( getDolGlobalInt('UPBUTTON_STICKY_TAB')) {
 			observer.observe(document.querySelector(".sentinal"));
 		}
 	}
-<?php
+	<?php
 }
 ?>
 });
@@ -196,56 +211,55 @@ function getButtonInBanner() {
 
 	});
 
-    <?php if(!getDolGlobalInt('UPBUTTON_HIDE_AVAILABLE_ACTION')) {?>
-        $nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
-        $nav.hover(
-            function () {
-                $(this).find('ul').show();
-            }
-            , function () {
-                $(this).find('ul').hide();
-            }
-        );
+	<?php if (!getDolGlobalInt('UPBUTTON_HIDE_AVAILABLE_ACTION')) {?>
+		$nav = $('<nav id="upbuttons-nav"><a href="#" class="butAction"><?php echo $langs->trans('LinksActions'); ?></a></nav>');
+		$nav.hover(
+			function () {
+				$(this).find('ul').show();
+			}
+			, function () {
+				$(this).find('ul').hide();
+			}
+		);
 
-        $nav.append($ul);
+		$nav.append($ul);
 
-        $dropdownbutton.append($nav);
-    <?php } ?>
+		$dropdownbutton.append($nav);
+	<?php } ?>
 
-	<?php if(getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
+	<?php if (getDolGlobalInt('UPBUTTON_DISPLAY_FLOATING_MENU')) { ?>
+		let menuClass = '--vertical';
 
-        let menuClass = '--vertical';
+		<?php if (getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE') == 'horizontal') { ?>
+			 menuClass = '--horizontal';
+		<?php } ?>
 
-        <?php if(getDolGlobalString('UPBUTTON_DISPLAY_FLOATING_MENU_TYPE') == 'horizontal') { ?>
-             menuClass = '--horizontal';
-        <?php } ?>
+		$nav = $('<div id="upbuttons-floating-menu" class="--closed ' + menuClass + '"><div class="upbuttons-floating-menu__flex-container"><div class="upbuttons-close-button"><span></span><span></span><span></span></div><div class="upbuttons-container"></div></div></div>');
 
-        $nav = $('<div id="upbuttons-floating-menu" class="--closed ' + menuClass + '"><div class="upbuttons-floating-menu__flex-container"><div class="upbuttons-close-button"><span></span><span></span><span></span></div><div class="upbuttons-container"></div></div></div>');
+		$dropdownbutton.append($nav);
+		let ul = $($ul).clone();
+		ul.show();
+		$('.upbuttons-container').append(ul);
+		if(menuClass == '--horizontal'){
+			 $('#upbuttons-floating-menu').width($('.upbuttons-container').width()+80);
+		}
 
-        $dropdownbutton.append($nav);
-        let ul = $($ul).clone();
-        ul.show();
-        $('.upbuttons-container').append(ul);
-        if(menuClass == '--horizontal'){
-             $('#upbuttons-floating-menu').width($('.upbuttons-container').width()+80);
-        }
+		$(document).on('click', '#upbuttons-floating-menu .upbuttons-close-button', function (event) {
+			$('#upbuttons-floating-menu').toggleClass('--closed');
+		});
 
-        $(document).on('click', '#upbuttons-floating-menu .upbuttons-close-button', function (event) {
-            $('#upbuttons-floating-menu').toggleClass('--closed');
-        });
+		$(document).on('mouseover', '#upbuttons-floating-menu.--closed .upbuttons-close-button', function (event) {
+			$('#upbuttons-floating-menu').toggleClass('--closed');
+		});
 
-        $(document).on('mouseover', '#upbuttons-floating-menu.--closed .upbuttons-close-button', function (event) {
-            $('#upbuttons-floating-menu').toggleClass('--closed');
-        });
-
-        // sur click out close
-        $(document).on("click", function(event) {
+		// sur click out close
+		$(document).on("click", function(event) {
 			if (!$(event.target).closest("#nav-dropdown").length) {
-            $('#upbuttons-floating-menu').addClass('--closed');
-            }
-        });
-    if ($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
-    else $('#upbuttons-floating-menu').show();
+			$('#upbuttons-floating-menu').addClass('--closed');
+			}
+		});
+	if ($('div.tabsAction').isInViewport()) $('#upbuttons-floating-menu').hide();
+	else $('#upbuttons-floating-menu').show();
 
 	<?php } ?>
 
