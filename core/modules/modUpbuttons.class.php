@@ -58,7 +58,7 @@ class modUpbuttons extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Description of module Upbuttons";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.4.3';
+		$this->version = '1.5.0';
 		// Url to the file with your last numberversion of this module
 		require_once __DIR__ . '/../../class/techatm.class.php';
 		$this->url_last_version = \upbuttons\TechATM::getLastModuleVersionUrl($this);
@@ -91,8 +91,11 @@ class modUpbuttons extends DolibarrModules
 		//							'workflow' => array('WORKFLOW_MODULE1_YOURACTIONTYPE_MODULE2'=>array('enabled'=>'isModEnabled("module1") && isModEnabled("module2")', 'picto'=>'yourpicto@upbuttons')) // Set here all workflow context managed by module
 		//                        );
 		$this->module_parts = array(
-			'js'=>array('/upbuttons/js/upbuttons.js.php')
-			,'css'=>array('/upbuttons/css/style.css')
+			'js'  => array(
+				'/upbuttons/js/upbuttons.js.php',
+				'/upbuttons/js/jquery.floatThead.min.js',
+			),
+			'css' => array('/upbuttons/css/style.css'),
 		);
 
 		// Data directories to create when module is enabled.
@@ -119,8 +122,8 @@ class modUpbuttons extends DolibarrModules
 		$this->const = array();
 
 		// Array to add new pages in new tabs
-		// Example: $this->tabs = array('objecttype:+tabname1:Title1:mylangfile@upbuttons:$user->hasRight('upbuttons', 'read'):/upbuttons/mynewtab1.php?id=__ID__',  	// To add a new tab identified by code tabname1
-		//                              'objecttype:+tabname2:Title2:mylangfile@upbuttons:$user->hasRight('othermodule', 'read'):/upbuttons/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2
+		// Example: $this->tabs = array('objecttype:+tabname1:Title1:mylangfile@upbuttons:$user->rights->upbuttons->read:/upbuttons/mynewtab1.php?id=__ID__',  	// To add a new tab identified by code tabname1
+		//                              'objecttype:+tabname2:Title2:mylangfile@upbuttons:$user->rights->othermodule->read:/upbuttons/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2
 		//                              'objecttype:-tabname:NU:conditiontoremove');                                                     						// To remove an existing tab identified by code tabname
 		// where objecttype can be
 		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)

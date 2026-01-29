@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+- NEW : Option importée du module déprécié fixedtablehead, permettant, sur les listes, de garder toujours visibles à l'écran les en-têtes de colonnes. - *29/10/2025* - 1.5.0
 
 ## Release 1.4
 - FIX : Compat v23 - *12/12/2025* - 1.4.3
