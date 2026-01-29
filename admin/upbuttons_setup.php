@@ -17,9 +17,10 @@
  */
 
 /**
- * \file     admin/upbuttons.php
- * \ingroup   upbuttons
- * \brief    Module setup page for UpButtons
+ * 	\file		admin/upbuttons.php
+ * 	\ingroup	upbuttons
+ * 	\brief		This file is an example module setup page
+ * 				Put some comments here
  */
 // Dolibarr environment
 $res = @include '../../main.inc.php'; // From htdocs directory

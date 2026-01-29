@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 - NEW : Option importée du module déprécié fixedtablehead, permettant, sur les listes, de garder toujours visibles à l'écran les en-têtes de colonnes. - *29/10/2025* - 1.5.0
 
 ## Release 1.4
+- FIX : Compat v23 - *12/12/2025* - 1.4.3
 - FIX : Ne pas afficher le bouton actions disponibles si ils sont de type input et donc envoi des données via formulaire - *06/02/2024* - 1.4.2
 - FIX : Compat 21 - *10/12/2024* - 1.4.1
 - NEW : Dolibarr compatibility V20 - *02/07/2024* - 1.4.0  
